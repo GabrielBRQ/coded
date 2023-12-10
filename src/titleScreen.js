@@ -15,10 +15,13 @@ function playGame() {
     audio.play();
 
     playButton.disabled = true;
-    playButton.style.opacity = targetOpacity;
-    background.style.opacity = targetOpacity;
-    title.style.opacity = targetOpacity;
-    floor.style.opacity = targetOpacity;
+
+    setTimeout(() => {
+        playButton.style.opacity = targetOpacity;
+        background.style.opacity = targetOpacity;
+        title.style.opacity = targetOpacity;
+        floor.style.opacity = targetOpacity;      
+    }, 100) 
 
     cactusList.forEach((cactus) => {
       cactus.style.opacity = targetOpacity;
