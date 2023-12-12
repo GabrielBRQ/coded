@@ -5,7 +5,7 @@ function createCaptcha() {
   button.removeAttribute('onclick');
   var container = document.querySelector('.container');
 
-  // Cria a div com a classe "monkey-type"
+  // Cria a div com a classe "monkey-type".
   var monkeyTypeDiv = document.createElement('div');
   monkeyTypeDiv.classList.add('monkey-type');
 
