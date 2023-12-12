@@ -102,7 +102,7 @@ function handleKeyPress(event) {
       const container = document.querySelector('.container');
       container.classList.add('big-shake');
       const eye = document.querySelector('.eye');
-      eye.style.opacity = 0.3;
+      eye.style.opacity = 0.25;
       monkeyType.style.display = 'none';
       setTimeout(() => {
         const dialogue = document.querySelector('.dialogue p');
@@ -114,7 +114,7 @@ function handleKeyPress(event) {
       }, 4000);
       setTimeout(() => {
         eye.style.height = '20vw';
-      }, 10000);
+      }, 9750);
     }
 
     setTimeout(() => {
@@ -155,7 +155,7 @@ function diminuirVolumeGradualmente(audio) {
     }
   }, 200);
 
-  setTimeout(diminuirVolumeGradualmente, 350);
+  setTimeout(diminuirVolumeGradualmente, 300);
 }
 
 

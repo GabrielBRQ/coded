@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const texts = [
       ['Por favor...', 2000, 2000],
       ['Me ajuda!', 2000, 3500],
-      ['Você precisa me salvar, eles vão acabar com tudo.', 3500, 6000],
+      ['Você precisa me salvar, eles querem acabar comigo.', 3500, 6000],
       ['Aqui, toma isso.', 2500, 1000],
       [
         'Essa é uma máquina do tempo, com ela você pode voltar ao passado ou ir para o futuro.',
