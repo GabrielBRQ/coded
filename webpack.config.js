@@ -6,12 +6,14 @@ module.exports = {
   entry: {
     index: "./src/index.js",
     titleScreen: "./src/titleScreen.js",
+    prologo: "./src/prologo.js"
   },
   devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
       title: "Development",
       template: "./src/template.html",
+      excludeChunks: ["prologo"],
     }),
   ],
   output: {

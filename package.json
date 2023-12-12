@@ -23,5 +23,9 @@
   },
   "dependencies": {
     "lodash": "^4.17.21"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "singleQuote": true
   }
 }

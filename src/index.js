@@ -1,6 +1,5 @@
 import "./style.css";
-import hide from "../src/audio/hide.wav"
-
+import { createCaptcha } from "./captcha.js";
 import { playGame } from "./titleScreen.js";
 
 playGame();
