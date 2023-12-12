@@ -1,8 +1,7 @@
+import "../css/prologo.css";
+import { createCaptcha, updateLetter } from "./captcha.js";
+
 document.addEventListener('DOMContentLoaded', function () {
-  setTimeout(() => {
-    var chapter = document.querySelector('.chapter');
-    chapter.style.opacity = 1;
-  }, 1000);
   const startChapter = document.querySelector('.start');
 
   startChapter.addEventListener('click', function () {
@@ -97,4 +96,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateText();
   }
+
+  var yearButton = document.querySelector('.year');
+  yearButton.addEventListener('click', function () {
+    createCaptcha()
+    updateLetter()
+    yearButton.disabled = true;
+  })
 });

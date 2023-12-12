@@ -1,8 +1,7 @@
 let lastPressedKey = '';
 let correctCount = 0;
-var button = document.querySelector('.year');
+
 function createCaptcha() {
-  button.removeAttribute('onclick');
   var container = document.querySelector('.container');
 
   // Cria a div com a classe "monkey-type".
@@ -12,7 +11,7 @@ function createCaptcha() {
   // Cria a div com a classe "monkey-title" e define o texto
   var monkeyTitleDiv = document.createElement('div');
   monkeyTitleDiv.classList.add('monkey-title');
-  monkeyTitleDiv.textContent = 'APENAS HUMANOS';
+  monkeyTitleDiv.textContent = 'CAPTCHA. PROVE SUA HUMANIDADE';
 
   // Cria as divs internas com as classes "letter" e "progress-bar"
   var letterDiv = document.createElement('div');
@@ -28,8 +27,6 @@ function createCaptcha() {
 
   // Adiciona a div "monkey-type" ao container existente
   container.appendChild(monkeyTypeDiv);
-
-  updateLetter();
 }
 
 function generateRandomLetter() {
@@ -39,6 +36,8 @@ function generateRandomLetter() {
 }
 
 function updateLetter() {
+  // Adiciona o listener para eventos de teclado
+  document.addEventListener('keypress', handleKeyPress);
   const letterDiv = document.querySelector('.monkey-type .letter');
 
   lastPressedKey = '';
@@ -70,7 +69,7 @@ function handleKeyPress(event) {
 
     if (correctCount === 2 || correctCount === 6) {
       var audio = document.getElementById('earthquake');
-      audio.volume = 1;
+      audio.volume = 0.6;
       audio.play();
       const container = document.querySelector('.container');
       container.classList.add('little-shake');
@@ -82,7 +81,7 @@ function handleKeyPress(event) {
 
     if (correctCount === 8) {
       var audio = document.getElementById('earthquake');
-      audio.volume = 1;
+      audio.volume = 0.8;
       audio.play();
       const container = document.querySelector('.container');
       container.classList.add('medium-shake');
@@ -144,20 +143,12 @@ function playRight() {
 }
 
 function diminuirVolumeGradualmente(audio) {
-  var intervalo = setInterval(function () {
-    // Aumente o volume em incrementos pequenos
-    if (audio.volume > 0.1) {
-      audio.volume -= 0.1;
-    } else {
-      audio.volume = 0.0; // Defina o volume para 0% se for menor que 0
-      audio.pause();
-      clearInterval(intervalo);
-    }
-  }, 200);
-
-  setTimeout(diminuirVolumeGradualmente, 300);
+  setTimeout(() => {
+    audio.volume = 0.2;
+  }, 600);
 }
 
-
-// Adiciona o listener para eventos de teclado
-document.addEventListener('keypress', handleKeyPress);
+export {
+  createCaptcha,
+  updateLetter
+};

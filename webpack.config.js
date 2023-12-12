@@ -4,16 +4,20 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    index: "./src/index.js",
-    titleScreen: "./src/titleScreen.js",
-    prologo: "./src/prologo.js"
+    index: "./src/scripts/index.js",
+    prologo: "./src/scripts/prologo.js"
   },
   devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Development",
-      template: "./src/template.html",
-      excludeChunks: ["prologo"],
+      template: 'src/html/template.html',
+      filename: 'index.html',
+      chunks: ['index', 'titleScreen'],
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/prologo.html',
+      filename: 'prologo.html',
+      chunks: ['prologo'],
     }),
   ],
   output: {
