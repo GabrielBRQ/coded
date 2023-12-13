@@ -99,6 +99,9 @@ function handleKeyPress(event) {
         container.style.opacity = 0;
         dialogue.textContent = 'Obrigado!';
         dialogueDiv.style.display = 'flex';
+        setTimeout(() => {
+          window.location.href = '../ato1-v1.html';
+        }, 7000);
       }, 4000);
       setTimeout(() => {
         eye.style.height = '20vw';
