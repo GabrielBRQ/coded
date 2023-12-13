@@ -73,21 +73,21 @@ function handleKeyPress(event) {
     fuzzy.style.opacity += 0.05;
 
     // Atualiza a largura da barra de progresso
-    progressBar.style.width = correctCount * 10 + '%';
+    progressBar.style.width = correctCount * 5 + '%';
 
     if (correctCount === 2 || correctCount === 6) {
       playEarthquake(0.8, 'little-shake', 700);
       decreaseVolume(document.getElementById('earthquake'));
     }
 
-    if (correctCount === 8) {
+    if (correctCount === 15) {
       playEarthquake(0.8, 'medium-shake', 700);
       setTimeout(() => {
         decreaseVolume(document.getElementById('earthquake'));
       }, 700);
     }
 
-    if (correctCount === 10) {
+    if (correctCount === 20) {
       playEarthquake(1, 'big-shake');
       const eye = document.querySelector('.eye');
       eye.style.opacity = 0.25;
@@ -98,9 +98,14 @@ function handleKeyPress(event) {
         const container = document.querySelector('.container');
         container.style.opacity = 0;
         dialogue.textContent = 'Obrigado!';
-        dialogueDiv.style.display = 'flex';
+        dialogueDiv.style.display = 'flex';  
+        setTimeout(() => {
+          window.location.href = '../dist/ato1-v1.html';
+        }, 9750);
       }, 4000);
       setTimeout(() => {
+        decreaseVolume(document.getElementById('earthquake'));
+        decreaseVolume(document.getElementById('noise'));
         eye.style.height = '20vw';
       }, 9750);
     }

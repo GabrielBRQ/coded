@@ -17,9 +17,11 @@ function playEarthquake(volume, type, duration) {
   audio.play();
   container.classList.add(type);
 
-  setTimeout(() => {
-    container.classList.remove('medium-shake');
-  }, 700);
+  if (type !== 'big-shake') {
+    setTimeout(() => {
+      container.classList.remove(type);
+    }, 700);
+  }
 }
 
 function increaseVolume(audioElement) {
@@ -41,9 +43,9 @@ function decreaseVolume(audioElement) {
     return;
   }
   setTimeout(() => {
-    audioElement.volume -= 0.05;
+    audioElement.volume -= 0.07;
     decreaseVolume(audioElement);
-  }, 400);
+  }, 300);
 }
 
 export { playRight, playWrong, playEarthquake, decreaseVolume, increaseVolume };
