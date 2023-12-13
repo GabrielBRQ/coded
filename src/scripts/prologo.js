@@ -1,4 +1,5 @@
 import "../css/prologo.css";
+import { increaseVolume } from "./audio.js";
 import { createCaptcha, updateLetter } from "./captcha.js";
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -14,20 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
       audio.volume = 0.1;
       audio.play();
 
-      function aumentarVolumeGradualmente() {
-        var intervalo = setInterval(function () {
-          // Aumente o volume em incrementos pequenos
-          if (audio.volume < 0.45) {
-            audio.volume += 0.05;
-          } else {
-            audio.volume = 0.45;
-            const timeWarp = document.querySelector('.timeWarp');
-            timeWarp.style.display = 'flex';
-            changeText();
-            clearInterval(intervalo);
-          }
-        }, 1250);
-      }
+      increaseVolume(document.getElementById('noise'));
+      changeText();
 
       setTimeout(() => {
         const container = document.querySelector('.container');
@@ -37,9 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(() => {
           fuzzy.style.opacity = 0.15;
         }, 2500);
-      }, 2500);
-      // Chame a função para aumentar o volume gradualmente após um atraso (por exemplo, 2 segundos)
-      setTimeout(aumentarVolumeGradualmente, 2000);
+      }, 2500);      
     }, 3000);
   });
 

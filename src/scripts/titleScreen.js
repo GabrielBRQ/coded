@@ -33,7 +33,7 @@ function playGame() {
       setTimeout(() => {
         dino.style.opacity = targetOpacity;
         setTimeout(() => {
-          window.location.href = './prologo.html';
+          window.location.href = '../prologo.html';
         }, 1000);
       }, 100);
     }, 2750);

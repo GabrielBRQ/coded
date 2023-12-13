@@ -1,3 +1,5 @@
+import { playRight, playWrong, playEarthquake, decreaseVolume } from "./audio.js";
+
 let lastPressedKey = '';
 let correctCount = 0;
 
@@ -11,7 +13,12 @@ function createCaptcha() {
   // Cria a div com a classe "monkey-title" e define o texto
   var monkeyTitleDiv = document.createElement('div');
   monkeyTitleDiv.classList.add('monkey-title');
-  monkeyTitleDiv.textContent = 'CAPTCHA. PROVE SUA HUMANIDADE';
+  var captcha = document.createElement('p');
+  captcha.textContent = 'CAPTCHA';
+  var captchaDescription = document.createElement('p');
+  captchaDescription.textContent = 'prove sua humanidade';
+  monkeyTitleDiv.appendChild(captcha);
+  monkeyTitleDiv.appendChild(captchaDescription);
 
   // Cria as divs internas com as classes "letter" e "progress-bar"
   var letterDiv = document.createElement('div');
@@ -36,7 +43,6 @@ function generateRandomLetter() {
 }
 
 function updateLetter() {
-  // Adiciona o listener para eventos de teclado
   document.addEventListener('keypress', handleKeyPress);
   const letterDiv = document.querySelector('.monkey-type .letter');
 
@@ -63,43 +69,26 @@ function handleKeyPress(event) {
     letterDiv.classList.add('correct');
     playRight();
     correctCount++;
+    const fuzzy = document.querySelector('.fuzzy-overlay');
+    fuzzy.style.opacity += 0.05;
 
     // Atualiza a largura da barra de progresso
     progressBar.style.width = correctCount * 10 + '%';
 
     if (correctCount === 2 || correctCount === 6) {
-      var audio = document.getElementById('earthquake');
-      audio.volume = 0.6;
-      audio.play();
-      const container = document.querySelector('.container');
-      container.classList.add('little-shake');
-      diminuirVolumeGradualmente(audio);
-      setTimeout(() => {
-        container.classList.remove('little-shake');
-      }, 700);
+      playEarthquake(0.8, 'little-shake', 700);
+      decreaseVolume(document.getElementById('earthquake'));
     }
 
     if (correctCount === 8) {
-      var audio = document.getElementById('earthquake');
-      audio.volume = 0.8;
-      audio.play();
-      const container = document.querySelector('.container');
-      container.classList.add('medium-shake');
+      playEarthquake(0.8, 'medium-shake', 700);
       setTimeout(() => {
-        container.classList.remove('medium-shake');
-        diminuirVolumeGradualmente(audio);
-        setTimeout(() => {
-          container.classList.remove('medium-shake');
-        }, 700);
+        decreaseVolume(document.getElementById('earthquake'));
       }, 700);
     }
 
     if (correctCount === 10) {
-      var audio = document.getElementById('earthquake');
-      audio.volume = 1;
-      audio.play();
-      const container = document.querySelector('.container');
-      container.classList.add('big-shake');
+      playEarthquake(1, 'big-shake');
       const eye = document.querySelector('.eye');
       eye.style.opacity = 0.25;
       monkeyType.style.display = 'none';
@@ -126,26 +115,6 @@ function handleKeyPress(event) {
       letterDiv.classList.remove('incorrect');
     }, 500);
   }
-}
-
-function playWrong() {
-  var audio = document.getElementById('teclaErrada');
-  audio.volume = 0.7;
-  audio.play();
-}
-
-function playRight() {
-  const fuzzy = document.querySelector('.fuzzy-overlay');
-  fuzzy.style.opacity += 0.05;
-  var audio = document.getElementById('teclaCorreta');
-  audio.volume = 0.2;
-  audio.play();
-}
-
-function diminuirVolumeGradualmente(audio) {
-  setTimeout(() => {
-    audio.volume = 0.2;
-  }, 600);
 }
 
 export {

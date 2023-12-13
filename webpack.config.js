@@ -5,7 +5,8 @@ module.exports = {
   mode: "development",
   entry: {
     index: "./src/scripts/index.js",
-    prologo: "./src/scripts/prologo.js"
+    prologo: "./src/scripts/prologo.js",
+    captcha: "./src/scripts/captcha.js"
   },
   devtool: "inline-source-map",
   plugins: [
@@ -17,7 +18,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/prologo.html',
       filename: 'prologo.html',
-      chunks: ['prologo'],
+      chunks: ['prologo', 'captcha'],
     }),
   ],
   output: {
