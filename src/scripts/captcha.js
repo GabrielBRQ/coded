@@ -100,7 +100,7 @@ function handleKeyPress(event) {
         dialogue.textContent = 'Obrigado!';
         dialogueDiv.style.display = 'flex';
         setTimeout(() => {
-          window.location.href = '../ato1-v1.html';
+          window.location.href = './ato1-v1.html';
         }, 9750);
 
       }, 4000);
