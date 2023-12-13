@@ -3,6 +3,8 @@ import { increaseVolume } from "./audio.js";
 import { createCaptcha, updateLetter } from "./captcha.js";
 
 document.addEventListener('DOMContentLoaded', function () {
+  var yearButton = document.querySelector('.year');
+  yearButton.style.display = 'none';  
   const startChapter = document.querySelector('.start');
 
   startChapter.addEventListener('click', function () {
@@ -15,18 +17,22 @@ document.addEventListener('DOMContentLoaded', function () {
       audio.volume = 0.1;
       audio.play();
 
-      increaseVolume(document.getElementById('noise'));
-      changeText();
+      
+      
 
       setTimeout(() => {
         const container = document.querySelector('.container');
         const fuzzy = document.querySelector('.fuzzy-overlay');
-
+        increaseVolume(document.getElementById('noise'));
         container.style.display = 'grid';
+        
         setTimeout(() => {
           fuzzy.style.opacity = 0.15;
         }, 2500);
-      }, 2500);      
+        setTimeout(() => {
+          changeText();
+        }, 6500);
+      }, 3000);      
     }, 3000);
   });
 
@@ -34,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const dialogue = document.querySelector('.dialogue p');
     const dialogueDiv = document.querySelector('.dialogue');
     const texts = [
-      ['Por favor...', 2000, 2000],
-      ['Me ajuda!', 2000, 3500],
+      ['Por favor...', 2500, 4000],
+      ['Me ajuda!', 2500, 3500],
       ['Você precisa me salvar, eles querem acabar comigo.', 3500, 6000],
       ['Aqui, toma isso.', 2500, 1000],
       [
@@ -64,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (index === 5){
             const timeline = document.querySelector('.timeline');
             timeline.style.opacity = 1;
+            yearButton.style.display = 'grid';  
         }
         index++;
       } else {
