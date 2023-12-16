@@ -1,7 +1,7 @@
 import '../css/joyJournal.css';
 import { timeTravelJoy } from './timeMachine.js';
 import { createCaptcha } from './captchaV2.js';
-import { playHappy } from './audio.js';
+import { playHappy, stopHappy } from './audio.js';
 import popup from '../img/popup.gif';
 
 let jumpscare = false;
@@ -111,25 +111,38 @@ function listenYears() {
 function playPopup() {
   const scrollPosition = window.scrollY;
 
-  if (scrollPosition >= (30 * window.innerHeight) / 100) {
+  if (scrollPosition >= (40 * window.innerHeight) / 100) {
+    const content = document.querySelector('.content');
+    var popupDiv = document.createElement('div');
+    var popupButton = document.createElement('button');
+
+    popupButton.textContent = 'FECHAR';
+    
+    var img = new Image();
+    img.src = popup;
+
+    popupDiv.classList.add('popup');
+    img.classList.add('popup-img');
+    content.appendChild(popupDiv);
+    popupDiv.appendChild(img);
+    popupDiv.appendChild(popupButton);
+    window.removeEventListener('scroll', playPopup);
     setTimeout(() => {
       playHappy();
-      const content = document.querySelector('.content');
-      var popupDiv = document.createElement('div');
-      var popupButton = document.createElement('button');
-  
-      popupButton.textContent = 'CLOSE';
-      var img = new Image();
-      img.src = popup;
-  
-      popupDiv.classList.add('popup');
-      img.classList.add('popup-img');
-      content.appendChild(popupDiv);
-      popupDiv.appendChild(img);
-      popupDiv.appendChild(popupButton);
-      window.removeEventListener('scroll', playPopup);
+      closePopup();
+      popupDiv.style.opacity = 1;
     }, 3000);
     jumpscare = true;
     
   }
+}
+
+function closePopup() {
+  const popup = document.querySelector('.popup');
+  const popupButton = document.querySelector('.popup button');
+
+  popupButton.addEventListener('click', function () {
+    popup.style.display = 'none';
+    stopHappy();
+  });
 }

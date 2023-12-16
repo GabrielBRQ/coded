@@ -60,4 +60,4 @@ function stopHappy() {
 }
 
 
-export { playRight, playWrong, playEarthquake, decreaseVolume, increaseVolume, playHappy };
+export { playRight, playWrong, playEarthquake, decreaseVolume, increaseVolume, playHappy, stopHappy };
