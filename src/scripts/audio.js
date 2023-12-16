@@ -10,7 +10,7 @@ function playRight() {
   audio.play();
 }
 
-function playEarthquake(volume, type, duration) {
+function playEarthquake(volume, type) {
   const container = document.querySelector('.container');
   var audio = document.getElementById('earthquake');
   audio.volume = volume;
@@ -48,4 +48,16 @@ function decreaseVolume(audioElement) {
   }, 300);
 }
 
-export { playRight, playWrong, playEarthquake, decreaseVolume, increaseVolume };
+function playHappy() {
+  var audio = document.getElementById('happy');
+  audio.volume = 1;
+  audio.play();
+}
+
+function stopHappy() {
+  var audio = document.getElementById('happy');
+  audio.pause();
+}
+
+
+export { playRight, playWrong, playEarthquake, decreaseVolume, increaseVolume, playHappy };

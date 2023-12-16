@@ -7,7 +7,9 @@ module.exports = {
     index: "./src/scripts/index.js",
     prologo: "./src/scripts/prologo.js",
     captcha: "./src/scripts/captcha.js",
-    ato1v1: "./src/scripts/ato1-v1.js"
+    ato1v1: "./src/scripts/ato1-v1.js",
+    joyJournal: "./src/scripts/joyJournal.js",
+    captchaV2: "./src/scripts/captchaV2.js"
   },
   devtool: "inline-source-map",
   plugins: [
@@ -25,6 +27,11 @@ module.exports = {
       template: 'src/ato1-v1.html',
       filename: 'ato1-v1.html',
       chunks: ['ato1v1'],
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/joyJournal.html',
+      filename: 'joyJournal.html',
+      chunks: ['joyJournal', 'captchaV2'],
     }),
   ],
   output: {

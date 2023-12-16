@@ -20,7 +20,7 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100vw;
-  height: 100vh;
+  overflow-x: hidden;
 }
 
 header {
@@ -111,6 +111,9 @@ input {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  position: absolute;
+  top:0;
+  left: 0;
 }
 
 .tw-center {
@@ -158,10 +161,14 @@ input {
 
 .container {
   position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   height: 110vh;
-  width: 100vw;
+  width: 90vw;
   display: none;
-  justify-items: center;
+  opacity: 0;
+  border: none;
 
   transition: opacity 4s ease-in-out;
 }
@@ -175,42 +182,32 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 50px;
 }
 
 .news-div {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 50px;
 }
 
 .news-div img {
-  height: 22vh;
-  width: 27vh;
+  height: 12vh;
+  width: 16vh;
   object-fit: cover;
   border: solid 1px gray;
-  cursor: pointer;
 }
 
 .news {
   display: flex;
-  flex-direction: column;
   justify-items: center;
   align-items: center;
-  position: relative;
-  text-align: center;
+  gap: 10px;
+  cursor: pointer;
 }
 
 .news p {
-  width: 27vh;
-  position: absolute;
-  bottom: 0;
-  background-color: #999;
-  color: #fcf7f7;
-  opacity: 0.85;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 40vh;
 }
 
 .dialogue {
