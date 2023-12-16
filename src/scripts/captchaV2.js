@@ -43,7 +43,6 @@ function createCaptcha(divYear) {
     letterDiv.appendChild(letter);
     letterDiv.appendChild(numberDiv);
 
-
     // Adiciona a div "monkey-type" ao content existente
     content.appendChild(monkeyTypeDiv);
   }
@@ -57,6 +56,7 @@ function generateRandomLetter() {
 }
 
 function updateLetter() {
+  disableScroll();
   document.addEventListener('keypress', handleKeyPress);
   const letterDiv = document.querySelector('.monkey-type .letter-div');
 
@@ -90,6 +90,9 @@ function handleKeyPress(event) {
     if (correctCount === 12) {
       timeTravelJoy(yearToTravel);
       monkeyType.style.display = 'none';
+      setTimeout(() => {
+        enableScroll();
+      }, 2000);
     }
     setTimeout(() => {
       updateLetter();
@@ -101,6 +104,19 @@ function handleKeyPress(event) {
       letterDiv.classList.remove('incorrect');
     }, 500);
   }
+}
+
+function disableScroll() {
+  window.addEventListener('scroll', scrollToTop);
+}
+
+// Função para habilitar o scroll
+function enableScroll() {
+  window.removeEventListener('scroll', scrollToTop);
+}
+
+function scrollToTop() {
+  window.scrollTo(0, 0);
 }
 
 export { createCaptcha, updateLetter };
