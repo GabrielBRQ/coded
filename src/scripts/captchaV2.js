@@ -7,6 +7,8 @@ let yearToTravel = '';
 
 function createCaptcha(divYear) {
   yearToTravel = divYear;
+  var yearButton = document.querySelector('.year');
+  yearButton.disabled = true;
   if (!document.querySelector('.monkey-type')) {
     var content = document.querySelector('.content');
 
@@ -88,8 +90,10 @@ function handleKeyPress(event) {
     progressBar.style.width = correctCount * 8 + '%';
 
     if (correctCount === 12) {
-      timeTravelJoy(yearToTravel);
       monkeyType.style.display = 'none';
+      timeTravelJoy(yearToTravel);
+      var yearButton = document.querySelector('.year');
+      yearButton.disabled = false;
       setTimeout(() => {
         enableScroll();
       }, 2000);
