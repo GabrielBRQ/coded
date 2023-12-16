@@ -26,23 +26,23 @@ body {
 .chapter {
   font-family: gamecuben;
   color: white;
-  font-size: 5rem;
+  font-size: 12vh;
   display: grid;
   transition: opacity 2.1s ease-in-out;
 }
 
 .chapter span {
-  font-size: 2rem;
+  font-size: 4vh;
   opacity: 0.7;
 }
 
 .chapter button {
   font-family: roboto;
   background: transparent;
-  border: solid 2px gray;
+  border: solid .3vh gray;
   color: gray;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 3vh;
 }
 
 .timeWarp,
@@ -56,7 +56,7 @@ body {
   height: 16vh;
   background-color: rgb(43, 42, 42);
   color: white;
-  border: solid 5px rgb(85, 85, 85);
+  border: solid 1vh rgb(85, 85, 85);
   border-top: none;
   border-radius: 10px;
   opacity: 0;
@@ -73,21 +73,21 @@ body {
 
 .tw-year,
 .tw-title {
-  font-size: 1.5rem;
+  font-size: 4vh;
 }
 
 .url {
   width: 100%;
   height: 3vh;
   background-color: aliceblue;
-  border: solid 2px black;
+  border: solid .3vh black;
   opacity: 0.1;
 }
 
 .timeline {
   width: 100%;
   height: 7vh;
-  border: solid 2px rgb(43, 42, 42);
+  border: solid .7vh rgb(43, 42, 42);
   display: flex;
   opacity: 0;
 
@@ -96,9 +96,9 @@ body {
 
 .year {
   height: 100%;
-  border: solid 2px rgb(85, 85, 85);
-  font-size: .5rem;
-  padding: 2px;
+  border: solid .5vh rgb(85, 85, 85);
+  font-size: 1.5vh;
+  padding: .7vh;
   cursor: pointer;
   display: grid;
   align-items: center;
@@ -112,10 +112,11 @@ body {
   width: 100vw;
   height: 10vh;
   background-color: rgb(43, 42, 42);
-  margin-bottom: 40px;
+  margin-bottom: 7vh;
   align-items: center;
   justify-content: center;
   opacity: 0.7;
+  font-size: 2.5vh;
 }
 
 .dialogue p {
@@ -186,15 +187,19 @@ body {
   justify-items: center;
 }
 
+.monkey-title p:first-child { 
+  font-size: 4vh;
+}
+
 .monkey-title p:last-child {
-  font-size: .6rem;
+  font-size: 2.8vh;
 }
 
 .letter {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 8vh;
 }
 
 .correct {
