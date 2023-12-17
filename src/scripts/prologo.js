@@ -1,8 +1,10 @@
 import "../css/prologo.css";
 import { increaseVolume } from "./audio.js";
 import { createCaptcha, updateLetter } from "./captcha.js";
+import { verifyNewUser } from "./localStorage-control.js";
 
 document.addEventListener('DOMContentLoaded', function () {
+  verifyNewUser();
   var yearButton = document.querySelector('.year');
   yearButton.style.display = 'none';  
   const startChapter = document.querySelector('.start');

@@ -1,10 +1,8 @@
 import '../css/joyJournal.css';
-import { timeTravelJoy } from './timeMachine.js';
 import { createCaptcha } from './captchaV2.js';
 import { playHappy, stopHappy } from './audio.js';
+import { checkJumpscare, changeJumpscare,  createYears, addYear} from './localStorage-control.js';
 import popup from '../img/popup.gif';
-
-let jumpscare = false;
 
 fetch('./ato1-v1.html')
   .then((response) => response.text())
@@ -18,7 +16,7 @@ fetch('./ato1-v1.html')
     // Substitua o conteúdo do cabeçalho na página alterada
     document.querySelector('.timeWarp').innerHTML = headerContent;
     const url = document.querySelector('.url');
-
+    createYears();
     url.textContent = 'http://www.joyjournal.com/';
     listenYears();
   })
@@ -72,6 +70,7 @@ function addEvent() {
       const timeline = document.querySelector('.timeline');
       timeline.appendChild(divYear);
 
+      addYear(texto);
       // Remover o event listener após o primeiro clique
       tag.removeEventListener('click', handleClick);
       listenYears();
@@ -100,8 +99,10 @@ function listenYears() {
   var yearDivs = document.querySelectorAll('.year');
   yearDivs.forEach(function (div) {
     div.addEventListener('click', function () {
+      const blur = document.querySelector('.blur');
+      blur.style.display = 'flex';
       createCaptcha(div.textContent);
-      if(jumpscare === false){
+      if(checkJumpscare === false){
         window.addEventListener('scroll', playPopup);
       }
     });
@@ -132,7 +133,7 @@ function playPopup() {
       closePopup();
       popupDiv.style.opacity = 1;
     }, 3000);
-    jumpscare = true;
+    changeJumpscare();
     
   }
 }

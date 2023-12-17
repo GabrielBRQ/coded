@@ -9,6 +9,7 @@ function createCaptcha(divYear) {
   yearToTravel = divYear;
   var yearButton = document.querySelector('.year');
   yearButton.disabled = true;
+  disableScroll();
   if (!document.querySelector('.monkey-type')) {
     var content = document.querySelector('.content');
 
@@ -58,7 +59,6 @@ function generateRandomLetter() {
 }
 
 function updateLetter() {
-  disableScroll();
   document.addEventListener('keypress', handleKeyPress);
   const letterDiv = document.querySelector('.monkey-type .letter-div');
 
@@ -91,12 +91,15 @@ function handleKeyPress(event) {
 
     if (correctCount === 12) {
       monkeyType.style.display = 'none';
-      timeTravelJoy(yearToTravel);
+
       var yearButton = document.querySelector('.year');
       yearButton.disabled = false;
-      setTimeout(() => {
-        enableScroll();
-      }, 2000);
+      if (document.title === 'Moodle') {
+        timeTravelJoy(yearToTravel);
+      }else {
+        timeTravelJoy(yearToTravel);
+      }
+      enableScroll();
     }
     setTimeout(() => {
       updateLetter();

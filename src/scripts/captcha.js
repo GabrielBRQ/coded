@@ -5,6 +5,8 @@ let correctCount = 0;
 
 function createCaptcha() {
   var container = document.querySelector('.container');
+  var safeScreen = document.querySelector('.safe-screen');
+  safeScreen.style.display = 'flex';
 
   // Cria a div com a classe "monkey-type".
   var monkeyTypeDiv = document.createElement('div');
