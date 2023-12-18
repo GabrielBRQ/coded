@@ -1,5 +1,5 @@
-function saveStatsLocal(jumpscare, chapter1, years) {
-    const stats = { jumpscare, chapter1, years };
+function saveStatsLocal(jumpscare, chapter1, years, currentYear) {
+    const stats = { jumpscare, chapter1, years, currentYear};
 
     const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
     gameStats.push(stats);
@@ -9,7 +9,7 @@ function saveStatsLocal(jumpscare, chapter1, years) {
 function verifyNewUser() {
     const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
     if (gameStats.length < 1) {
-        saveStatsLocal(false, false, [2014]);
+        saveStatsLocal(false, false, [2014], '2014');
     }
 }
 
@@ -64,15 +64,17 @@ function createYears() {
     const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
     let allYears = gameStats[gameStats.length - 1].years;
 
-    // Itera sobre cada ano no array allYears
-    for (let i = 0; i < allYears.length; i++) {
-        // Cria uma div com a classe 'year' e o texto igual ao valor no array
-        const yearDiv = document.createElement('div');
-        yearDiv.classList.add('year');
-        yearDiv.textContent = allYears[i];
-
-        // Adiciona a div ao elemento timeLine
-        timeLine.appendChild(yearDiv);
+    if (timeLine.childElementCount === 0) {
+        // Itera sobre cada ano no array allYears
+        for (let i = 0; i < allYears.length; i++) {
+            // Cria uma div com a classe 'year' e o texto igual ao valor no array
+            const yearDiv = document.createElement('div');
+            yearDiv.classList.add('year');
+            yearDiv.textContent = allYears[i];
+    
+            // Adiciona a div ao elemento timeLine
+            timeLine.appendChild(yearDiv);
+        }
     }
 }
 
@@ -84,6 +86,19 @@ function addYear(newYear) {
 }
 
 
+function getYear() {
+    const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
+
+    return gameStats[gameStats.length - 1].currentYear;
+}
+
+function changeYear(newYear) {
+    const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
+
+    gameStats[gameStats.length - 1].currentYear = newYear;
+    localStorage.setItem('gameStats', JSON.stringify(gameStats));
+}
+
 export {
-    verifyNewUser, changeJumpscare, changeChapter1, checkJumpscare, checkChapter1, createYears, addYear
+    verifyNewUser, changeJumpscare, changeChapter1, checkJumpscare, checkChapter1, createYears, addYear, getYear, changeYear
 }

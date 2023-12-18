@@ -1,8 +1,9 @@
 import '../css/joyJournal.css';
 import { createCaptcha } from './captchaV2.js';
 import { playHappy, stopHappy } from './audio.js';
-import { checkJumpscare, changeJumpscare,  createYears, addYear} from './localStorage-control.js';
+import { checkJumpscare, changeJumpscare,  createYears, addYear, getYear} from './localStorage-control.js';
 import popup from '../img/popup.gif';
+import { timeTravelJoy } from './timeMachine.js';
 
 fetch('./ato1-v1.html')
   .then((response) => response.text())
@@ -20,14 +21,11 @@ fetch('./ato1-v1.html')
     url.textContent = 'http://www.joyjournal.com/';
     listenYears();
   })
-  .catch((error) =>
-    console.error('Erro ao carregar a página preservada:', error)
-  );
 
 document.addEventListener('DOMContentLoaded', function () {
   addEvent();
+  timeTravelJoy(getYear());
   const animatedImage = document.querySelector('.weird');
-
   function handleScroll() {
     const scrollPosition = window.scrollY;
 
@@ -102,7 +100,7 @@ function listenYears() {
       const blur = document.querySelector('.blur');
       blur.style.display = 'flex';
       createCaptcha(div.textContent);
-      if(checkJumpscare === false){
+      if(checkJumpscare() === false){
         window.addEventListener('scroll', playPopup);
       }
     });
@@ -111,12 +109,10 @@ function listenYears() {
 
 function playPopup() {
   const scrollPosition = window.scrollY;
-
-  if (scrollPosition >= (40 * window.innerHeight) / 100) {
+  if (scrollPosition >= (2 * window.innerHeight) / 100) {
     const content = document.querySelector('.content');
     var popupDiv = document.createElement('div');
     var popupButton = document.createElement('button');
-
     popupButton.textContent = 'FECHAR';
     
     var img = new Image();
@@ -130,11 +126,10 @@ function playPopup() {
     window.removeEventListener('scroll', playPopup);
     setTimeout(() => {
       playHappy();
-      closePopup();
+      closePopup()
       popupDiv.style.opacity = 1;
     }, 3000);
     changeJumpscare();
-    
   }
 }
 

@@ -1,17 +1,22 @@
 import { playRight, playWrong } from './audio.js';
-import { timeTravelJoy } from './timeMachine.js';
+import { timeTravelJoy, timeTravelMoodle, timeTravelBuzz } from './timeMachine.js';
+import { changeYear } from './localStorage-control.js';
+import { getNews } from './ato1-v1.js';
 
 let lastPressedKey = '';
-let correctCount = 0;
 let yearToTravel = '';
-
+let correctCount = 0;
 function createCaptcha(divYear) {
   yearToTravel = divYear;
   var yearButton = document.querySelector('.year');
   yearButton.disabled = true;
   disableScroll();
   if (!document.querySelector('.monkey-type')) {
-    var content = document.querySelector('.content');
+    if (document.title === 'Moodle') {
+      var content = document.querySelector('.moodle');
+    }else {
+      var content = document.querySelector('.content');
+    }
 
     // Cria a div com a classe "monkey-type".
     var monkeyTypeDiv = document.createElement('div');
@@ -49,6 +54,7 @@ function createCaptcha(divYear) {
     // Adiciona a div "monkey-type" ao content existente
     content.appendChild(monkeyTypeDiv);
   }
+  correctCount = 0;
   updateLetter();
 }
 
@@ -72,6 +78,8 @@ function handleKeyPress(event) {
   const letterDiv = document.querySelector('.monkey-type .letter-div');
   const progressBar = document.querySelector('.monkey-type .progress-bar');
   const monkeyType = document.querySelector('.monkey-type');
+  
+  
 
   const pressedKey = String.fromCharCode(event.keyCode);
   const currentLetter = letterDiv.textContent;
@@ -95,10 +103,16 @@ function handleKeyPress(event) {
       var yearButton = document.querySelector('.year');
       yearButton.disabled = false;
       if (document.title === 'Moodle') {
+        timeTravelMoodle(yearToTravel);
+        setTimeout(() => {
+          getNews();
+        }, 2000);
+      }else if(document.title === 'JOY JOURNAL') {
         timeTravelJoy(yearToTravel);
-      }else {
-        timeTravelJoy(yearToTravel);
+      } else {
+        timeTravelBuzz(yearToTravel);
       }
+      changeYear(yearToTravel);
       enableScroll();
     }
     setTimeout(() => {

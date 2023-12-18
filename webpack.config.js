@@ -7,9 +7,10 @@ module.exports = {
     index: "./src/scripts/index.js",
     prologo: "./src/scripts/prologo.js",
     captcha: "./src/scripts/captcha.js",
+    captchaV2: "./src/scripts/captchaV2.js",
     ato1v1: "./src/scripts/ato1-v1.js",
     joyJournal: "./src/scripts/joyJournal.js",
-    captchaV2: "./src/scripts/captchaV2.js"
+    byteBuzz: "./src/scripts/byteBuzz.js"
   },
   devtool: "inline-source-map",
   plugins: [
@@ -26,12 +27,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/ato1-v1.html',
       filename: 'ato1-v1.html',
-      chunks: ['ato1v1'],
+      chunks: ['ato1v1', 'captchaV2'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/joyJournal.html',
       filename: 'joyJournal.html',
       chunks: ['joyJournal', 'captchaV2'],
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/byteBuzz.html',
+      filename: 'byteBuzz.html',
+      chunks: ['byteBuzz', 'captchaV2'],
     }),
   ],
   output: {

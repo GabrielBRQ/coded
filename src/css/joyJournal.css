@@ -223,7 +223,7 @@ p i {
   position: absolute;
   width: 100vw;
   height: 190vh;
-  opacity: 0;
+  opacity: 1;
   display: none;
   background-color: black;
 
