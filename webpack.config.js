@@ -10,7 +10,8 @@ module.exports = {
     captchaV2: "./src/scripts/captchaV2.js",
     ato1v1: "./src/scripts/ato1-v1.js",
     joyJournal: "./src/scripts/joyJournal.js",
-    byteBuzz: "./src/scripts/byteBuzz.js"
+    byteBuzz: "./src/scripts/byteBuzz.js",
+    dnLeaks: "./src/scripts/dnLeaks"
   },
   devtool: "inline-source-map",
   plugins: [
@@ -38,6 +39,11 @@ module.exports = {
       template: 'src/byteBuzz.html',
       filename: 'byteBuzz.html',
       chunks: ['byteBuzz', 'captchaV2'],
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/dnLeaks.html',
+      filename: 'dnLeaks.html',
+      chunks: ['dnLeaks', 'captchaV2'],
     }),
   ],
   output: {

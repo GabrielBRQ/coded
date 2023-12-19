@@ -1,5 +1,10 @@
 import { playRight, playWrong } from './audio.js';
-import { timeTravelJoy, timeTravelMoodle, timeTravelBuzz } from './timeMachine.js';
+import {
+  timeTravelJoy,
+  timeTravelMoodle,
+  timeTravelBuzz,
+  timeTravelLeak
+} from './timeMachine.js';
 import { changeYear } from './localStorage-control.js';
 import { getNews } from './ato1-v1.js';
 
@@ -14,10 +19,11 @@ function createCaptcha(divYear) {
   if (!document.querySelector('.monkey-type')) {
     if (document.title === 'Moodle') {
       var content = document.querySelector('.moodle');
-    }else {
+    } else if (document.title === 'darkNetLeaks') {
+      var content = document.querySelector('.captcha');
+    } else {
       var content = document.querySelector('.content');
     }
-
     // Cria a div com a classe "monkey-type".
     var monkeyTypeDiv = document.createElement('div');
     monkeyTypeDiv.classList.add('monkey-type');
@@ -78,8 +84,6 @@ function handleKeyPress(event) {
   const letterDiv = document.querySelector('.monkey-type .letter-div');
   const progressBar = document.querySelector('.monkey-type .progress-bar');
   const monkeyType = document.querySelector('.monkey-type');
-  
-  
 
   const pressedKey = String.fromCharCode(event.keyCode);
   const currentLetter = letterDiv.textContent;
@@ -107,10 +111,12 @@ function handleKeyPress(event) {
         setTimeout(() => {
           getNews();
         }, 2000);
-      }else if(document.title === 'JOY JOURNAL') {
+      } else if (document.title === 'JOY JOURNAL') {
         timeTravelJoy(yearToTravel);
-      } else {
+      } else if (document.title === 'Byte Buzz'){
         timeTravelBuzz(yearToTravel);
+      } else {
+        timeTravelLeak(yearToTravel);
       }
       changeYear(yearToTravel);
       enableScroll();

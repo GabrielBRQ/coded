@@ -1,4 +1,4 @@
-import '../css/byteBuzz.css';
+import '../css/dnLeaks.css';
 import { timeTravelBuzz } from './timeMachine.js';
 import { getYear, createYears } from './localStorage-control.js';
 import { createCaptcha } from './captchaV2.js';
@@ -16,15 +16,13 @@ fetch('./ato1-v1.html')
     document.querySelector('.timeWarp').innerHTML = headerContent;
     const url = document.querySelector('.url');
     createYears();
-    url.textContent = 'http://www.bytebuzz.com/';
+    url.textContent = 'http://www.dnleaks.com/';
     listenYears();
   });
 
 document.addEventListener('DOMContentLoaded', function () {
-  timeTravelBuzz(getYear());
   setTimeout(() => {
     listenYears();
-    addEvent();
   }, 3000);
 });
 
@@ -39,17 +37,4 @@ function listenYears() {
   });
 }
 
-function addEvent() {
-  const tag = document.querySelector('i');
 
-  function handleClick() {
-    console.log('clicou')
-    window.location.href = './dnLeaks.html';
-  }
-
-
-  // Verificar se o evento ainda não foi adicionado
-  if (tag) {
-    tag.addEventListener('click', handleClick);
-  }
-}

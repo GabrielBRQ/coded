@@ -114,9 +114,7 @@ function timeTravelBuzz(textContent) {
     blur.style.opacity = 1;
     setTimeout(() => {
       const currentYear = document.querySelector('.tw-year');
-      console.log(`current year igual á: ${currentYear}`);
       const currentYearText = currentYear.textContent;
-      console.log(`currentYearText igual á: ${currentYearText}`);
       console.log(currentYearText !== textContent);
       fetch(`./byteBuzz${textContent}.html`)
         .then((response) => response.text())
@@ -155,4 +153,43 @@ function timeTravelBuzz(textContent) {
   }, 300);
 }
 
-export { timeTravelJoy, timeTravelMoodle, timeTravelBuzz };
+function timeTravelLeak(textContent) {
+  const blur = document.querySelector('.blur');
+  blur.style.display = 'block';
+
+  setTimeout(() => {
+    blur.style.opacity = 1;
+    setTimeout(() => {
+      const currentYear = document.querySelector('.tw-year');
+      const currentYearText = currentYear.textContent;
+      console.log(currentYearText !== textContent);
+      fetch(`./dnLeaks${textContent}.html`)
+        .then((response) => response.text())
+        .then((data) => {
+          const tempElement = document.createElement('div');
+          tempElement.innerHTML = data;
+
+          const content = tempElement.querySelector(
+            `.content${textContent}`
+          ).innerHTML;
+
+          const oldContent = document.querySelector('.content');
+          oldContent.innerHTML = content;
+          if (textContent !== '2014') {
+            const timeWarp = document.querySelector('.timeWarp');
+            timeWarp.style.fontFamily = 'compactz';
+          } else {
+            const timeWarp = document.querySelector('.timeWarp');
+            timeWarp.style.fontFamily = 'oldMoodle';
+          }
+          
+          currentYear.textContent = textContent;
+        });
+      blur.style.opacity = 0;
+      setTimeout(() => {
+        blur.style.display = 'none';
+      }, 1500);
+    }, 1500);
+  }, 300);
+}
+export { timeTravelJoy, timeTravelMoodle, timeTravelBuzz, timeTravelLeak };
