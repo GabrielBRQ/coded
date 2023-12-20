@@ -4,18 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>darkNetLeaks</title>
-  <script defer src="captchaV2.bundle.js"></script><script defer src="dnLeaks.bundle.js"></script></head>
-  <body>
+  <script defer src="captchaV2.bundle.js"></script><script defer src="dnLeaks.bundle.js"></script><script defer src="timeMachine.bundle.js"></script></head>
+  <body class="body-leaks">
+    <audio id="speak" src="./audio/psyede.wav"></audio>
+    <audio id="static" src="./audio/static_sound.wav"></audio>
     <audio id="teclaErrada" src="./audio/tecla_errada.mp3"></audio>
     <audio id="teclaCorreta" src="./audio/tecla_correta.ogg"></audio>
     <div class="timeWarp"></div>
     <div class="captcha"></div>
     <div class="content">
       <div class="not-found">
-        <img class="imgNotFound" src="./img/not_found.png">
+        <img class="imgNotFoundFinal" src="./img/not_found.png">
         <p>Página não encontrada</p>
       </div>
     </div>
-    <div class="blur"></div>
+    <img class="static-img" src="./img/not_found.png">
+    <div class="light"></div>
+    <div class="dialogue-final"><p>Eu... voltei no tempo?</p></div>
+    <div class="blur-final"></div>
   </body>
 </html>
