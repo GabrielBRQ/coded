@@ -1,5 +1,5 @@
 import "../css/prologo.css";
-import { increaseVolume } from "./audio.js";
+import { increaseVolume, playChapter } from "./audio.js";
 import { createCaptcha, updateLetter } from "./captcha.js";
 import { verifyNewUser } from "./localStorage-control.js";
 
@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const startChapter = document.querySelector('.start');
 
   startChapter.addEventListener('click', function () {
+    playChapter();
     startChapter.disabled = true;
     var chapter = document.querySelector('.chapter');
     chapter.style.opacity = 0;
@@ -19,11 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
       audio.volume = 0.1;
       audio.play();
 
-      
-      
-
       setTimeout(() => {
-        const container = document.querySelector('.container');
+        const container = document.querySelector('.container-prologo');
         const fuzzy = document.querySelector('.fuzzy-overlay');
         increaseVolume(document.getElementById('noise'));
         container.style.display = 'grid';
@@ -35,12 +33,12 @@ document.addEventListener('DOMContentLoaded', function () {
           changeText();
         }, 6500);
       }, 3000);      
-    }, 3000);
+    }, 5500);
   });
 
   function changeText() {
-    const dialogue = document.querySelector('.dialogue p');
-    const dialogueDiv = document.querySelector('.dialogue');
+    const dialogue = document.querySelector('.dialogue-prologo p');
+    const dialogueDiv = document.querySelector('.dialogue-prologo');
     const texts = [
       ['Por favor...', 2500, 4000],
       ['Me ajuda!', 2500, 3500],
@@ -67,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dialogueDiv.style.display = 'flex';
         hideDialogue(arr[1], arr[2]);
         if (index === 3) {
-          const timeWarp = document.querySelector('.timeWarp');
+          const timeWarp = document.querySelector('.timeWarp-prologo');
           timeWarp.style.opacity = 0.7;
         } else if (index === 5){
             const timeline = document.querySelector('.timeline');

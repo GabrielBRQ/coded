@@ -11,7 +11,7 @@ function playRight() {
 }
 
 function playEarthquake(volume, type) {
-  const container = document.querySelector('.container');
+  const container = document.querySelector('.container-prologo');
   var audio = document.getElementById('earthquake');
   audio.volume = volume;
   audio.play();
@@ -27,7 +27,7 @@ function playEarthquake(volume, type) {
 function increaseVolume(audioElement) {
   if (audioElement.volume >= 0.45) {
     audioElement.volume = 0.45;
-    const timeWarp = document.querySelector('.timeWarp');
+    const timeWarp = document.querySelector('.timeWarp-prologo');
     timeWarp.style.display = 'flex';
     return;
   }
@@ -59,5 +59,51 @@ function stopHappy() {
   audio.pause();
 }
 
+function playStatic() {
+  var audio = document.getElementById('static');
+  audio.volume = 1;
+  audio.play();
+}
 
-export { playRight, playWrong, playEarthquake, decreaseVolume, increaseVolume, playHappy, stopHappy };
+function playChapter() {
+  var audio = document.getElementById('chapterSound');
+  audio.volume = 1;
+  audio.play();
+}
+
+function speak() {
+  var audio = document.getElementById('speak');
+  const sounds = [
+    'bip2.mp3',
+    'bip3.mp3',
+    'bip4.wav',
+    'bip5.wav',
+  ];
+
+  const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+    const audioPath = `./audio/${randomSound}`;
+    audio.src = audioPath;
+    audio.volume = .8;
+
+    audio.play();
+}
+
+function addYearSong() {
+  var audio = document.getElementById('yearSong');
+  audio.volume = .6;
+  audio.play();
+}
+
+export {
+  playRight,
+  playWrong,
+  playEarthquake,
+  decreaseVolume,
+  increaseVolume,
+  playHappy,
+  stopHappy,
+  playStatic,
+  playChapter,
+  speak,
+  addYearSong
+};

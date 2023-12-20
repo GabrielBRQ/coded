@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Moodle</title>
-  <script defer src="captchaV2.bundle.js"></script><script defer src="ato1v1.bundle.js"></script></head>
+  <script defer src="captchaV2.bundle.js"></script><script defer src="ato1v1.bundle.js"></script><script defer src="timeMachine.bundle.js"></script></head>
   <body>
+    <audio id="speak" src="./audio/psyede.wav"></audio>
+    <audio id="chapterSound" src="./audio/psyede.wav"></audio>
     <audio id="teclaErrada" src="./audio/tecla_errada.mp3"></audio>
     <audio id="teclaCorreta" src="./audio/tecla_correta.ogg"></audio>
     <div class="chapter">
@@ -13,14 +15,14 @@
       <button class="start">Começar</button>
     </div>
     <div class="container">
-      <header>
+      <header class="headerAto1">
         <div class="timeWarp">
           <div class="tw-title">
             <p>TW</p>
             <p>explorer</p>
           </div>
           <div class="tw-center">
-            <div class="url">http://www.moodle.com/</div>
+            <div class="url"><img class="home" src="./img/home.png"><p>http://www.moodle.com/</p></div>
             <div class="timeline">
 
             </div>

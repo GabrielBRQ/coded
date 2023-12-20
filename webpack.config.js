@@ -11,7 +11,9 @@ module.exports = {
     ato1v1: "./src/scripts/ato1-v1.js",
     joyJournal: "./src/scripts/joyJournal.js",
     byteBuzz: "./src/scripts/byteBuzz.js",
-    dnLeaks: "./src/scripts/dnLeaks"
+    dnLeaks: "./src/scripts/dnLeaks",
+    timeMachine : "./src/scripts/timeMachine.js",
+    titleScreen: "./src/scripts/titleScreen.js"
   },
   devtool: "inline-source-map",
   plugins: [
@@ -28,22 +30,25 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/ato1-v1.html',
       filename: 'ato1-v1.html',
-      chunks: ['ato1v1', 'captchaV2'],
+      chunks: ['ato1v1', 'captchaV2', 'timeMachine'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/joyJournal.html',
       filename: 'joyJournal.html',
-      chunks: ['joyJournal', 'captchaV2'],
+      chunks: ['joyJournal', 'captchaV2', 'timeMachine'],
+      excludeChunks: ['ato1-v1'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/byteBuzz.html',
       filename: 'byteBuzz.html',
-      chunks: ['byteBuzz', 'captchaV2'],
+      chunks: ['byteBuzz', 'captchaV2', 'timeMachine'],
+      excludeChunks: ['ato1-v1'],
     }),
     new HtmlWebpackPlugin({
       template: 'src/dnLeaks.html',
       filename: 'dnLeaks.html',
-      chunks: ['dnLeaks', 'captchaV2'],
+      chunks: ['dnLeaks', 'captchaV2', 'timeMachine'],
+      excludeChunks: ['ato1-v1'],
     }),
   ],
   output: {

@@ -1,3 +1,7 @@
+import { listenHome } from "./ato1-v1.js";
+import { addEvent } from "./byteBuzz.js";
+import { startLastPart } from "./dnLeaks.js";
+
 function timeTravelJoy(textContent) {
   const blur = document.querySelector('.blur');
   blur.style.display = 'block';
@@ -16,14 +20,14 @@ function timeTravelJoy(textContent) {
             const content = tempElement.querySelector(
               `.content-${textContent}`
             ).innerHTML;
-            const oldContent = document.querySelector('.content');
+            const oldContent = document.querySelector('.content-joy');
             const dinos = document.querySelectorAll('.dino');
 
             dinos.forEach((dino) => {
               dino.style.display = 'none';
             });
 
-            if (textContent !== '2014') {
+            if (textContent === '2016') {
               const timeWarp = document.querySelector('.timeWarp');
               timeWarp.style.fontFamily = 'compactz';
               oldContent.style.background = 'transparent';
@@ -77,7 +81,7 @@ function timeTravelMoodle(textContent) {
             const oldNews = document.querySelector('.news-container');
             oldNews.innerHTML = news;
 
-            if (textContent !== '2014') {
+            if (textContent === '2016') {
               const timeWarp = document.querySelector('.timeWarp');
               const moodleTitle = document.querySelector('.moodle-title');
               const imgNews = document.querySelector('.img-news');
@@ -115,7 +119,6 @@ function timeTravelBuzz(textContent) {
     setTimeout(() => {
       const currentYear = document.querySelector('.tw-year');
       const currentYearText = currentYear.textContent;
-      console.log(currentYearText !== textContent);
       fetch(`./byteBuzz${textContent}.html`)
         .then((response) => response.text())
         .then((data) => {
@@ -126,14 +129,15 @@ function timeTravelBuzz(textContent) {
             `.content-${textContent}`
           ).innerHTML;
 
-          const oldContent = document.querySelector('.content');
+          const oldContent = document.querySelector('.content-buzz');
           oldContent.innerHTML = content;
-          if (textContent !== '2014') {
+          if (textContent === '2016') {
             const timeWarp = document.querySelector('.timeWarp');
             timeWarp.style.fontFamily = 'compactz';
             document.body.style.height = 'auto';
             var headerTag = document.querySelector('header');
             headerTag.style.display = 'flex';
+            addEvent();
           } else {
             const timeWarp = document.querySelector('.timeWarp');
             timeWarp.style.fontFamily = 'oldMoodle';
@@ -154,7 +158,7 @@ function timeTravelBuzz(textContent) {
 }
 
 function timeTravelLeak(textContent) {
-  const blur = document.querySelector('.blur');
+  const blur = document.querySelector('.blur-final');
   blur.style.display = 'block';
 
   setTimeout(() => {
@@ -162,7 +166,6 @@ function timeTravelLeak(textContent) {
     setTimeout(() => {
       const currentYear = document.querySelector('.tw-year');
       const currentYearText = currentYear.textContent;
-      console.log(currentYearText !== textContent);
       fetch(`./dnLeaks${textContent}.html`)
         .then((response) => response.text())
         .then((data) => {
@@ -173,14 +176,24 @@ function timeTravelLeak(textContent) {
             `.content${textContent}`
           ).innerHTML;
 
+          const body = document.querySelector('.body-leaks');
           const oldContent = document.querySelector('.content');
           oldContent.innerHTML = content;
-          if (textContent !== '2014') {
+          if (textContent === '2016') {
             const timeWarp = document.querySelector('.timeWarp');
             timeWarp.style.fontFamily = 'compactz';
+            body.style.backgroundColor = '#181818';
           } else {
             const timeWarp = document.querySelector('.timeWarp');
-            timeWarp.style.fontFamily = 'oldMoodle';
+            timeWarp.style.display = 'none';
+            body.style.backgroundColor = '#080808';
+            setTimeout(() => {
+              startLastPart();
+              const dino = document.querySelector('.imgNotFoundFinal');
+              const light = document.querySelector('.light');
+              light.style.opacity = '1';
+              dino.style.zIndex = '1';
+            }, 1500);
           }
           
           currentYear.textContent = textContent;

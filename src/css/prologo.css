@@ -13,14 +13,16 @@
   padding: 0;
 }
 
-body {
+.prologo-body {
   background-color: black;
   display: grid;
   height: 100vh;
   width: 100vw;
   align-content: center;
   justify-items: center;
+  justify-content: center;
   overflow: hidden;
+  margin: 0;
 }
 
 .chapter {
@@ -45,12 +47,12 @@ body {
   font-size: 3vh;
 }
 
-.timeWarp,
-.dialogue {
+.timeWarp-prologo,
+.dialogue-prologo {
   display: none;
 }
 
-.timeWarp {
+.timeWarp-prologo {
   font-family: gamecuben;
   width: calc(90vw - 10px);
   height: 16vh;
@@ -76,7 +78,7 @@ body {
   font-size: 4vh;
 }
 
-.url {
+.url-prologo {
   width: 100%;
   height: 3vh;
   background-color: aliceblue;
@@ -108,7 +110,7 @@ body {
   background-color: rgb(70, 68, 68);
 }
 
-.dialogue {
+.dialogue-prologo {
   width: 100vw;
   height: 10vh;
   background-color: rgb(43, 42, 42);
@@ -119,12 +121,12 @@ body {
   font-size: 2.5vh;
 }
 
-.dialogue p {
+.dialogue-prologo p {
   color: white;
   font-family: roboto;
 }
 
-.container {
+.container-prologo {
   position: relative;
   height: 100vh;
   width: 100vw;
@@ -163,7 +165,7 @@ body {
   animation: shift 0.2s linear infinite both;
 }
 
-.monkey-type {
+.monkey-type-prologo {
   position: absolute;
   display: grid;
   top: 50%;
@@ -173,13 +175,14 @@ body {
   height: 40vh;
   width: 50vw;
   background-color: rgb(65, 62, 62);
-  border-radius: 5px;
+  border-bottom-right-radius: 5vh;
+  border-top-left-radius: 5vh;
   color: black;
   align-items: center;
   justify-items: center;
 }
 
-.monkey-title {
+.monkey-title-prologo {
   color: rgb(36, 36, 36);
   font-family: gamecuben;
   display: grid;

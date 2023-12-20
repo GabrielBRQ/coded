@@ -3,9 +3,9 @@ import {
   timeTravelJoy,
   timeTravelMoodle,
   timeTravelBuzz,
-  timeTravelLeak
+  timeTravelLeak,
 } from './timeMachine.js';
-import { changeYear } from './localStorage-control.js';
+import { changeYear, getYear } from './localStorage-control.js';
 import { getNews } from './ato1-v1.js';
 
 let lastPressedKey = '';
@@ -21,8 +21,10 @@ function createCaptcha(divYear) {
       var content = document.querySelector('.moodle');
     } else if (document.title === 'darkNetLeaks') {
       var content = document.querySelector('.captcha');
+    } else if (document.title === 'JOY JOURNAL') {
+      var content = document.querySelector('.content-joy');
     } else {
-      var content = document.querySelector('.content');
+      var content = document.querySelector('.content-buzz');
     }
     // Cria a div com a classe "monkey-type".
     var monkeyTypeDiv = document.createElement('div');
@@ -34,7 +36,7 @@ function createCaptcha(divYear) {
     var captcha = document.createElement('p');
     captcha.textContent = 'CAPTCHA';
     var captchaDescription = document.createElement('p');
-    captchaDescription.textContent = 'prove sua humanidade';
+    captchaDescription.textContent = 'Prove sua humanidade';
     monkeyTitleDiv.appendChild(captcha);
     monkeyTitleDiv.appendChild(captchaDescription);
 
@@ -59,7 +61,19 @@ function createCaptcha(divYear) {
 
     // Adiciona a div "monkey-type" ao content existente
     content.appendChild(monkeyTypeDiv);
+  } else {
+    let monkey = document.querySelector('.monkey-type');
+    monkey.style.display = 'grid';
   }
+  let monkeyTitle = document.querySelector('.monkey-title');
+  if (getYear() === '2016') {
+    monkeyTitle.style.fontFamily = 'roboto';
+    monkeyTitle.style.borderRadius = '3vh';
+  } else {
+    monkeyTitle.style.fontFamily = 'oldMoodle';
+  }
+  const progressBar = document.querySelector('.monkey-type .progress-bar');
+  progressBar.style.width = 0;
   correctCount = 0;
   updateLetter();
 }
@@ -99,9 +113,9 @@ function handleKeyPress(event) {
     correctCount++;
 
     // Atualiza a largura da barra de progresso
-    progressBar.style.width = correctCount * 8 + '%';
+    progressBar.style.width = correctCount * 11.1 + '%';
 
-    if (correctCount === 12) {
+    if (correctCount === 9) {
       monkeyType.style.display = 'none';
 
       var yearButton = document.querySelector('.year');
@@ -113,7 +127,7 @@ function handleKeyPress(event) {
         }, 2000);
       } else if (document.title === 'JOY JOURNAL') {
         timeTravelJoy(yearToTravel);
-      } else if (document.title === 'Byte Buzz'){
+      } else if (document.title === 'Byte Buzz') {
         timeTravelBuzz(yearToTravel);
       } else {
         timeTravelLeak(yearToTravel);

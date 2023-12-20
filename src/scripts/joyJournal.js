@@ -1,11 +1,24 @@
 import '../css/joyJournal.css';
 import { createCaptcha } from './captchaV2.js';
-import { playHappy, stopHappy } from './audio.js';
-import { checkJumpscare, changeJumpscare,  createYears, addYear, getYear} from './localStorage-control.js';
+import { addYearSong, playHappy, speak, stopHappy } from './audio.js';
+import {
+  checkJumpscare,
+  changeJumpscare,
+  createYears,
+  addYear,
+  getYear,
+  checkYearClue,
+  changeYearClue,
+  checkMoodleClue,
+  changeMoodleClue,
+} from './localStorage-control.js';
 import popup from '../img/popup.gif';
 import { timeTravelJoy } from './timeMachine.js';
+import { listenHome } from './ato1-v1.js';
 
-fetch('./ato1-v1.html')
+
+if (document.title === 'JOY JOURNAL') {
+  fetch('./ato1-v1.html')
   .then((response) => response.text())
   .then((data) => {
     const tempElement = document.createElement('div');
@@ -16,38 +29,44 @@ fetch('./ato1-v1.html')
 
     // Substitua o conteúdo do cabeçalho na página alterada
     document.querySelector('.timeWarp').innerHTML = headerContent;
-    const url = document.querySelector('.url');
+    const url = document.querySelector('.url p');
     createYears();
     url.textContent = 'http://www.joyjournal.com/';
     listenYears();
-  })
+    listenHome();
+  });
 
-document.addEventListener('DOMContentLoaded', function () {
-  addEvent();
-  timeTravelJoy(getYear());
-  const animatedImage = document.querySelector('.weird');
-  function handleScroll() {
-    const scrollPosition = window.scrollY;
+  document.addEventListener('DOMContentLoaded', function () {
+    addEvent();
+    timeTravelJoy(getYear());
+    const animatedImage = document.querySelector('.weird');
+    function handleScroll() {
+      const scrollPosition = window.scrollY;
 
-    // Ativa a animação quando a posição de rolagem atinge 120vh
-    if (scrollPosition >= (62 * window.innerHeight) / 100) {
-      animatedImage.style.animationPlayState = 'running';
-      window.removeEventListener('scroll', handleScroll);
-      setTimeout(() => {
-        const dialogue = document.querySelector('.dialogue');
-        dialogue.style.display = 'flex';
-        setTimeout(() => {
-          const dialogue = document.querySelector('.dialogue');
-          dialogue.style.display = 'none';
-        }, 3000);
-      }, 5500);
+      if (checkYearClue() === false) {
+        // Ativa a animação e fala
+        if (scrollPosition >= (62 * window.innerHeight) / 100) {
+          animatedImage.style.animationPlayState = 'running';
+          window.removeEventListener('scroll', handleScroll);
+          setTimeout(() => {
+            speak();
+            const dialogue = document.querySelector('.dialogue');
+            dialogue.style.display = 'flex';
+            setTimeout(() => {
+              const dialogue = document.querySelector('.dialogue');
+              dialogue.style.display = 'none';
+              changeYearClue();
+            }, 3000);
+          }, 5500);
+        }
+      } else {
+        animatedImage.style.display = 'none';
+      }
     }
-  }
-
-  
-  window.addEventListener('scroll', handleScroll);
-  
-});
+    
+    window.addEventListener('scroll', handleScroll);
+  });
+}
 
 function criarDivYear(texto) {
   const divYear = document.createElement('div');
@@ -72,6 +91,7 @@ function addEvent() {
       // Remover o event listener após o primeiro clique
       tag.removeEventListener('click', handleClick);
       listenYears();
+      addYearSong();
     }
   }
 
@@ -100,7 +120,7 @@ function listenYears() {
       const blur = document.querySelector('.blur');
       blur.style.display = 'flex';
       createCaptcha(div.textContent);
-      if(checkJumpscare() === false){
+      if (checkJumpscare() === false) {
         window.addEventListener('scroll', playPopup);
       }
     });
@@ -110,11 +130,11 @@ function listenYears() {
 function playPopup() {
   const scrollPosition = window.scrollY;
   if (scrollPosition >= (2 * window.innerHeight) / 100) {
-    const content = document.querySelector('.content');
+    const content = document.querySelector('.content-joy ');
     var popupDiv = document.createElement('div');
     var popupButton = document.createElement('button');
     popupButton.textContent = 'FECHAR';
-    
+
     var img = new Image();
     img.src = popup;
 
@@ -126,9 +146,9 @@ function playPopup() {
     window.removeEventListener('scroll', playPopup);
     setTimeout(() => {
       playHappy();
-      closePopup()
+      closePopup();
       popupDiv.style.opacity = 1;
-    }, 3000);
+    }, 5500);
     changeJumpscare();
   }
 }
@@ -136,9 +156,25 @@ function playPopup() {
 function closePopup() {
   const popup = document.querySelector('.popup');
   const popupButton = document.querySelector('.popup button');
+  const dialogue = document.querySelector('.dialogue');
+  const dialogueText = document.querySelector('.dialogue p');
 
   popupButton.addEventListener('click', function () {
     popup.style.display = 'none';
     stopHappy();
+    setTimeout(() => {
+      if (checkMoodleClue() === false) {
+        changeMoodleClue();
+        speak();
+        dialogueText.textContent =
+          'Será que a página do Moodle está diferente?';
+        dialogue.style.display = 'flex';
+        setTimeout(() => {
+          dialogue.style.display = 'none';
+        }, 3500);
+      }
+    }, 6500);
   });
 }
+
+export { listenYears };

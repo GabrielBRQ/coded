@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ATO 1, V???</title>
   <script defer src="prologo.bundle.js"></script><script defer src="captcha.bundle.js"></script></head>
-  <body>
+  <body class="prologo-body">
+    <audio id="chapterSound" src="./audio/psyede.wav"></audio>
     <audio id="noise" src="./audio/background_noise.wav" loop></audio>
     <audio id="teclaErrada" src="./audio/tecla_errada.mp3"></audio>
     <audio id="teclaCorreta" src="./audio/tecla_correta.ogg"></audio>
@@ -15,21 +16,21 @@
       <button class="start">Começar</button>
     </div>
     
-    <div class="container">
-        <div class="timeWarp">
+    <div class="container-prologo">
+        <div class="timeWarp-prologo">
             <div class="tw-title">
                 <p>TW</p>
                 <p>explorer</p>
             </div>
             <div class="tw-center">
-                <div class="url"></div>
+                <div class="url-prologo"></div>
                 <div class="timeline">
                     <div class="year">2014</div>
                 </div>
             </div>
             <div class="tw-year">20XX</div>
         </div>
-        <div class="dialogue"><p>Por favor...</p></div>
+        <div class="dialogue-prologo"><p>Por favor...</p></div>
         <div class="fuzzy-overlay"></div>
         <div class="eye"></div>
         <div class="safe-screen"></div>

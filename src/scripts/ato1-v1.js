@@ -7,65 +7,80 @@ import {
 } from './localStorage-control.js';
 import { createCaptcha } from './captchaV2.js';
 import { timeTravelMoodle } from './timeMachine.js';
+import { playChapter, speak } from './audio.js';
 
-document.addEventListener('DOMContentLoaded', function () {
-  timeTravelMoodle(getYear());
-  const container = document.querySelector('.container');
-  if (checkChapter1() === false) {
-    const startChapter = document.querySelector('.start');
-
-    startChapter.addEventListener('click', function () {
-      startChapter.disabled = true;
+if (document.title === 'Moodle') {
+  document.addEventListener('DOMContentLoaded', function () {
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
       history.pushState(null, null, document.URL);
-      var chapter = document.querySelector('.chapter');
-      chapter.style.opacity = 0;
-      changeChapter1();
-      setTimeout(() => {
-        chapter.style.display = 'none';
-        activeContent();
-        setTimeout(() => {
-          container.style.opacity = 1;
-        }, 500);
-        setTimeout(() => {
-          const dialogue = document.querySelector('.dialogue');
-          dialogue.style.display = 'flex';
+    });
+    timeTravelMoodle(getYear());
+    const container = document.querySelector('.container');
+    if (checkChapter1() === false) {
+      const startChapter = document.querySelector('.start');
+
+      startChapter.addEventListener(
+        'click',
+        function () {
+          playChapter();
+          startChapter.disabled = true;
+          history.pushState(null, null, document.URL);
+          var chapter = document.querySelector('.chapter');
+          chapter.style.opacity = 0;
           setTimeout(() => {
-            dialogue.style.display = 'none';
-          }, 3000);
-        }, 5500);
-      }, 3000);
-    });
-  } else {
-    var chapter = document.querySelector('.chapter');
-    chapter.style.display = 'none';
-    container.style.opacity = 1;
-    activeContent();
-  }
-  
-  setTimeout(() => {
-    createYears();
-  }, 1500);
+            changeChapter1();
+            setTimeout(() => {
+              chapter.style.display = 'none';
+              activeContent();
+              setTimeout(() => {
+                container.style.opacity = 1;
+              }, 500);
+              setTimeout(() => {
+                speak();
+                const dialogue = document.querySelector('.dialogue');
+                dialogue.style.display = 'flex';
+                setTimeout(() => {
+                  dialogue.style.display = 'none';
+                }, 3000);
+              }, 5500);
+            }, 3000);
+          });
+        },
+        3000
+      );
+    } else {
+      var chapter = document.querySelector('.chapter');
+      chapter.style.display = 'none';
+      container.style.opacity = 1;
+      activeContent();
+    }
 
-  var buttons = document.querySelectorAll('.search-buttons button');
+    setTimeout(() => {
+      createYears();
+    }, 1500);
 
-  buttons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      const dialogue = document.querySelector('.dialogue');
-      dialogue.textContent = 'Não funciona...';
-      dialogue.style.display = 'flex';
-      setTimeout(() => {
-        dialogue.style.display = 'none';
-      }, 2000);
+    var buttons = document.querySelectorAll('.search-buttons button');
+
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        speak();
+        const dialogue = document.querySelector('.dialogue');
+        dialogue.textContent = 'Não funciona...';
+        dialogue.style.display = 'flex';
+        setTimeout(() => {
+          dialogue.style.display = 'none';
+        }, 2000);
+      });
     });
+
+    setTimeout(() => {
+      getNews();
+      listenYears();
+    }, 4000);
   });
-
-  setTimeout(() => {
-    getNews();
-    listenYears();
-  }, 4000);
-  
- 
-});
+  listenHome();
+}
 
 function getNews() {
   var twYear = document.querySelector('.tw-year');
@@ -104,6 +119,11 @@ function listenYears() {
   });
 }
 
-export {
-  getNews
+function listenHome(){
+  const home = document.querySelector('.home');
+  home.addEventListener('click', function () {
+    window.location.href = './ato1-v1.html';
+  });
 }
+
+export { getNews, listenHome};
