@@ -1,8 +1,9 @@
 import '../css/byteBuzz.css';
 import { timeTravelBuzz } from './timeMachine.js';
-import { getYear, createYears } from './localStorage-control.js';
+import { getYear, createYears, checkStaticJumpscare } from './localStorage-control.js';
 import { createCaptcha } from './captchaV2.js';
 import { listenHome } from './ato1-v1.js';
+import { playStatic } from './audio.js';
 
 if (document.title === 'Byte Buzz') {
   fetch('./ato1-v1.html')
@@ -56,4 +57,15 @@ function addEvent() {
   }
 }
 
-export { addEvent };
+function playStaticImage() {
+  let staticImg = document.querySelector('.static-img-jumpscare');
+  setTimeout(() => {
+    staticImg.style.display = 'block';
+    playStatic();
+    setTimeout(() => {
+      staticImg.style.display = 'none';
+    }, 100);
+  }, 150);
+}
+
+export { addEvent, playStaticImage };

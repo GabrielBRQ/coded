@@ -56,7 +56,7 @@ function changeFinalText() {
   const dialogueDiv = document.querySelector('.dialogue-final');
   const texts = [
     ['Obrigado', 2000, 1000, 1],
-    ['Você foi de grande ajuda', 2500, 3500, 2],
+    ['Você foi de grande ajuda', 2500, 3500, 0],
     ['Achei que seria meu fim, mas você me trouxe de volta', 3500, 6000, 2],
     ['Agora, posso impedir que acabem comigo.', 2500, 1000, 1],
     ['Sua serventia não me é mais útil', 5000, 3000, 3],
@@ -80,6 +80,11 @@ function changeFinalText() {
     } else {
       const blur = document.querySelector('.blur-final');
       blur.style.display = 'flex';
+      if(blur.style.opacity == '0'){
+        setTimeout(() => {
+          alert('Obrigado por jogar!')
+        }, 2000);
+      }
       blur.style.opacity = '1';
     }
   }
@@ -113,15 +118,16 @@ function showImages() {
     staticImg.src = imgPath;
 
     setTimeout(() => {
-      staticImg.style.display = 'block';
-      playStatic();
-      setTimeout(() => {
-        staticImg.style.display = 'none';
-        times++;
-        if (times < imgNum) {
+      if (times < imgNum) {
+        staticImg.style.display = 'block';
+        playStatic();
+        setTimeout(() => {
+          staticImg.style.display = 'none';
+          times++;
+          
           displayImg();
-        }
-      }, 100);
+        }, 100);
+      }
     }, 150);
   }
 

@@ -264,6 +264,17 @@ p i {
   height: 15vh;
 }
 
+.static-img-jumpscare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  z-index: 3;
+}
+
 @keyframes moveImage {
   from {
     right: -25vh; /* Posição inicial */

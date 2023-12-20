@@ -5,8 +5,9 @@ import {
   timeTravelBuzz,
   timeTravelLeak,
 } from './timeMachine.js';
-import { changeYear, getYear } from './localStorage-control.js';
+import { changeYear, getYear, checkStaticJumpscare, changeStaticJumpscare } from './localStorage-control.js';
 import { getNews } from './ato1-v1.js';
+import { playStaticImage } from './byteBuzz.js';
 
 let lastPressedKey = '';
 let yearToTravel = '';
@@ -114,6 +115,11 @@ function handleKeyPress(event) {
 
     // Atualiza a largura da barra de progresso
     progressBar.style.width = correctCount * 11.1 + '%';
+
+    if(document.title === 'Byte Buzz' && correctCount === 7 && checkStaticJumpscare() === false) {
+      playStaticImage();
+      changeStaticJumpscare();
+    }
 
     if (correctCount === 9) {
       monkeyType.style.display = 'none';

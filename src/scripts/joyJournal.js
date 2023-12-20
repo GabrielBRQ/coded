@@ -129,7 +129,7 @@ function listenYears() {
 
 function playPopup() {
   const scrollPosition = window.scrollY;
-  if (scrollPosition >= (2 * window.innerHeight) / 100) {
+  if (scrollPosition >= (5 * window.innerHeight) / 100) {
     const content = document.querySelector('.content-joy ');
     var popupDiv = document.createElement('div');
     var popupButton = document.createElement('button');

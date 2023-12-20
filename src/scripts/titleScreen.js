@@ -1,4 +1,4 @@
-import { saveStatsLocal } from "./localStorage-control.js";
+import { saveStatsLocal } from './localStorage-control.js';
 
 function playGame() {
   const playButton = document.querySelector('.play-button');
@@ -11,7 +11,7 @@ function playGame() {
   playButton.addEventListener('click', function () {
     // Define opacity to 0
     const targetOpacity = 0.008;
-    saveStatsLocal(false, false, [2014], '2014', false, false);
+    saveStatsLocal(false, false, [2014], '2014', false, false, false);
     var audio = document.getElementById('powerOff');
     audio.volume = 0.6;
     audio.play();
