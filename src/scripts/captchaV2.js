@@ -5,7 +5,14 @@ import {
   timeTravelBuzz,
   timeTravelLeak,
 } from './timeMachine.js';
-import { changeYear, getYear, checkStaticJumpscare, changeStaticJumpscare, checkCaptchaTutorial, changeCaptchaTutorial } from './localStorage-control.js';
+import {
+  changeYear,
+  getYear,
+  checkStaticJumpscare,
+  changeStaticJumpscare,
+  checkCaptchaTutorial,
+  changeCaptchaTutorial,
+} from './localStorage-control.js';
 import { getNews } from './ato1-v1.js';
 import { playStaticImage } from './byteBuzz.js';
 
@@ -66,6 +73,7 @@ function createCaptcha(divYear) {
   } else {
     let monkey = document.querySelector('.monkey-type');
     monkey.style.display = 'grid';
+    correctCount = 0;
   }
   let monkeyTitle = document.querySelector('.monkey-title');
   if (getYear() === '2016') {
@@ -113,20 +121,26 @@ function handleKeyPress(event) {
 
   if (
     (pressedKey.toUpperCase() === shiftLetter(currentLetter, shift) ||
-    pressedKey.toLowerCase() === shiftLetter(currentLetter, shift)) &&
-  pressedKey !== lastPressedKey
+      pressedKey.toLowerCase() === shiftLetter(currentLetter, shift)) &&
+    pressedKey !== lastPressedKey
   ) {
     lastPressedKey = pressedKey;
     letterDiv.classList.add('correct');
     playRight();
     correctCount++;
 
-    changeCaptchaTutorial();
+    if (correctCount === 2) {
+      changeCaptchaTutorial();
+    }
 
     // Atualiza a largura da barra de progresso
     progressBar.style.width = correctCount * 11.1 + '%';
 
-    if(document.title === 'Byte Buzz' && correctCount === 4 && checkStaticJumpscare() === false) {
+    if (
+      document.title === 'Byte Buzz' &&
+      correctCount === 4 &&
+      checkStaticJumpscare() === false
+    ) {
       playStaticImage();
       changeStaticJumpscare();
     }
@@ -158,24 +172,30 @@ function handleKeyPress(event) {
     letterDiv.classList.add('incorrect');
     playWrong();
     wrongCount++;
-    if(wrongCount == 3 && checkCaptchaTutorial() === false){
+    if (wrongCount == 3 && checkCaptchaTutorial() === false) {
       const dialogue = document.querySelector('.dialogue');
       const dialogueP = document.querySelector('.dialogue p');
 
-      dialogueP.textContent = 'Talvez a letra indique a posição inicial e o número a posição da letra que se deve apertar a partir da posição inicial.'
+      dialogueP.textContent =
+        'Talvez a letra indique a posição inicial e o número a posição da letra que se deve apertar a partir da posição inicial.';
       dialogue.style.display = 'flex';
 
       setTimeout(() => {
         dialogue.style.display = 'none';
       }, 12000);
     }
-    if(wrongCount == 5 && checkCaptchaTutorial() === false && (document.title === 'Moodle' || document.title === 'JOY JOURNAL')){
+    if (
+      wrongCount == 5 &&
+      checkCaptchaTutorial() === false &&
+      (document.title === 'Moodle' || document.title === 'JOY JOURNAL')
+    ) {
       const dialogue = document.querySelector('.dialogue');
       const dialogueP = document.querySelector('.dialogue p');
 
-      dialogueP.textContent = 'Por exemplo A2, o usuário deveria apertar a letra C.'
+      dialogueP.textContent =
+        'Por exemplo A2, o usuário deveria apertar a letra C.';
       dialogue.style.display = 'flex';
-
+      wrongCount = 0;
       setTimeout(() => {
         dialogue.style.display = 'none';
       }, 8000);

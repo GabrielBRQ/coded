@@ -139,10 +139,7 @@
 }
 
 .eye {
-  background-color: white;
-  border: solid 2px white;
-  width: 20vw;
-  height: 2vh;
+  height: 45vh;
   position: absolute;
   top: 0;
   bottom: 0;

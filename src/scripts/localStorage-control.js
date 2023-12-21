@@ -21,6 +21,7 @@ function saveStatsLocal(
 
   const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
   gameStats.push(stats);
+  
   localStorage.setItem('gameStats', JSON.stringify(gameStats));
 }
 

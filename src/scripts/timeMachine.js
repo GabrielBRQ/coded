@@ -1,6 +1,7 @@
 import { listenHome } from "./ato1-v1.js";
 import { addEvent } from "./byteBuzz.js";
 import { startLastPart } from "./dnLeaks.js";
+import { listenYears } from "./joyJournal.js";
 
 function timeTravelJoy(textContent) {
   const blur = document.querySelector('.blur');
@@ -34,6 +35,9 @@ function timeTravelJoy(textContent) {
               oldContent.style.color = 'white';
               oldContent.style.width = '75vw';
               oldContent.innerHTML = content;
+              setTimeout(() => {
+                listenYears();
+              }, 2000);
             } else {
               const timeWarp = document.querySelector('.timeWarp');
               timeWarp.style.fontFamily = 'oldMoodle';

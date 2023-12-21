@@ -16,27 +16,27 @@ import popup from '../img/popup.gif';
 import { timeTravelJoy } from './timeMachine.js';
 import { listenHome } from './ato1-v1.js';
 
-
 if (document.title === 'JOY JOURNAL') {
   fetch('./ato1-v1.html')
-  .then((response) => response.text())
-  .then((data) => {
-    const tempElement = document.createElement('div');
-    tempElement.innerHTML = data;
+    .then((response) => response.text())
+    .then((data) => {
+      const tempElement = document.createElement('div');
+      tempElement.innerHTML = data;
 
-    // Extraia o conteúdo do cabeçalho
-    const headerContent = tempElement.querySelector('.timeWarp').innerHTML;
+      // Extraia o conteúdo do cabeçalho
+      const headerContent = tempElement.querySelector('.timeWarp').innerHTML;
 
-    // Substitua o conteúdo do cabeçalho na página alterada
-    document.querySelector('.timeWarp').innerHTML = headerContent;
-    const url = document.querySelector('.url p');
-    createYears();
-    url.textContent = 'http://www.joyjournal.com/';
-    listenYears();
-    listenHome();
-  });
+      // Substitua o conteúdo do cabeçalho na página alterada
+      document.querySelector('.timeWarp').innerHTML = headerContent;
+      const url = document.querySelector('.url p');
+      createYears();
+      url.textContent = 'http://www.joyjournal.com/';
+      listenYears();
+      listenHome();
+    });
 
   document.addEventListener('DOMContentLoaded', function () {
+    listenYears();
     addEvent();
     timeTravelJoy(getYear());
     const animatedImage = document.querySelector('.weird');
@@ -63,7 +63,7 @@ if (document.title === 'JOY JOURNAL') {
         animatedImage.style.display = 'none';
       }
     }
-    
+
     window.addEventListener('scroll', handleScroll);
   });
 }
@@ -114,12 +114,14 @@ function verificarDivExistente(texto) {
 }
 
 function listenYears() {
+  console.log('listenYears foi chamado')
   var yearDivs = document.querySelectorAll('.year');
   yearDivs.forEach(function (div) {
     div.addEventListener('click', function () {
       const blur = document.querySelector('.blur');
       blur.style.display = 'flex';
       createCaptcha(div.textContent);
+      console.log(checkJumpscare());
       if (checkJumpscare() === false) {
         window.addEventListener('scroll', playPopup);
       }

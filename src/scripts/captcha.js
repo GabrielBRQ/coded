@@ -107,10 +107,16 @@ function handleKeyPress(event) {
         }, 9750);
       }, 4000);
       setTimeout(() => {
-        decreaseVolume(document.getElementById('earthquake'));
-        decreaseVolume(document.getElementById('noise'));
-        eye.style.height = '38vh';
-      }, 9750);
+        eye.src = './img/testeMeio1.png';
+        setTimeout(() => {
+          eye.src = './img/testeMeio2.png';
+          setTimeout(() => {
+            eye.src = './img/AbertoTeste.png';
+            decreaseVolume(document.getElementById('earthquake'));
+            decreaseVolume(document.getElementById('noise'));
+          }, 100);
+        }, 100);
+      }, 8500);
     }
 
     setTimeout(() => {
