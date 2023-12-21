@@ -5,7 +5,8 @@ function saveStatsLocal(
   currentYear,
   yearClue,
   backMoodleClue,
-  staticJumpscare
+  staticJumpscare,
+  captchaTutorial,
 ) {
   const stats = {
     jumpscare,
@@ -15,6 +16,7 @@ function saveStatsLocal(
     yearClue,
     backMoodleClue,
     staticJumpscare,
+    captchaTutorial
   };
 
   const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
@@ -25,7 +27,7 @@ function saveStatsLocal(
 function verifyNewUser() {
   const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
   if (gameStats.length < 1) {
-    saveStatsLocal(false, false, [2014], '2014', false, false, false);
+    saveStatsLocal(false, false, [2014], '2014', false, false, false, false);
   }
 }
 
@@ -165,6 +167,23 @@ function checkStaticJumpscare() {
   return false;
 }
 
+function changeCaptchaTutorial() {
+  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
+  gameStats[gameStats.length - 1].captchaTutorial = true;
+  localStorage.setItem('gameStats', JSON.stringify(gameStats));
+}
+
+function checkCaptchaTutorial() {
+  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
+
+  if (gameStats.length > 0) {
+    if (gameStats[gameStats.length - 1].captchaTutorial === true) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export {
   verifyNewUser,
   changeJumpscare,
@@ -181,5 +200,7 @@ export {
   changeMoodleClue,
   checkMoodleClue,
   checkStaticJumpscare,
-  changeStaticJumpscare
+  changeStaticJumpscare,
+  checkCaptchaTutorial,
+  changeCaptchaTutorial
 };

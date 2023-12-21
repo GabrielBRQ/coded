@@ -5,13 +5,14 @@ import {
   timeTravelBuzz,
   timeTravelLeak,
 } from './timeMachine.js';
-import { changeYear, getYear, checkStaticJumpscare, changeStaticJumpscare } from './localStorage-control.js';
+import { changeYear, getYear, checkStaticJumpscare, changeStaticJumpscare, checkCaptchaTutorial, changeCaptchaTutorial } from './localStorage-control.js';
 import { getNews } from './ato1-v1.js';
 import { playStaticImage } from './byteBuzz.js';
 
 let lastPressedKey = '';
 let yearToTravel = '';
 let correctCount = 0;
+let wrongCount = 0;
 function createCaptcha(divYear) {
   yearToTravel = divYear;
   var yearButton = document.querySelector('.year');
@@ -76,13 +77,17 @@ function createCaptcha(divYear) {
   const progressBar = document.querySelector('.monkey-type .progress-bar');
   progressBar.style.width = 0;
   correctCount = 0;
+  wrongCount = 0;
   updateLetter();
 }
 
 function generateRandomLetter() {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const randomIndex = Math.floor(Math.random() * alphabet.length);
-  return alphabet[randomIndex];
+  const randomLetter = alphabet[randomIndex];
+
+  const randomNumber = Math.floor(Math.random() * 3) + 1; // Número aleatório de 1 a 5 (shift)
+  return randomLetter + randomNumber;
 }
 
 function updateLetter() {
@@ -90,8 +95,8 @@ function updateLetter() {
   const letterDiv = document.querySelector('.monkey-type .letter-div');
 
   lastPressedKey = '';
-  const randomLetter = generateRandomLetter();
-  letterDiv.textContent = randomLetter;
+  const randomInfo = generateRandomLetter();
+  letterDiv.textContent = randomInfo;
   letterDiv.classList.remove('correct');
 }
 
@@ -101,27 +106,32 @@ function handleKeyPress(event) {
   const monkeyType = document.querySelector('.monkey-type');
 
   const pressedKey = String.fromCharCode(event.keyCode);
-  const currentLetter = letterDiv.textContent;
+  const currentInfo = letterDiv.textContent;
+
+  const currentLetter = currentInfo.charAt(0);
+  const shift = parseInt(currentInfo.charAt(1), 10);
 
   if (
-    (pressedKey.toUpperCase() === currentLetter ||
-      pressedKey.toLowerCase() === currentLetter) &&
-    pressedKey !== lastPressedKey
+    (pressedKey.toUpperCase() === shiftLetter(currentLetter, shift) ||
+    pressedKey.toLowerCase() === shiftLetter(currentLetter, shift)) &&
+  pressedKey !== lastPressedKey
   ) {
     lastPressedKey = pressedKey;
     letterDiv.classList.add('correct');
     playRight();
     correctCount++;
 
+    changeCaptchaTutorial();
+
     // Atualiza a largura da barra de progresso
     progressBar.style.width = correctCount * 11.1 + '%';
 
-    if(document.title === 'Byte Buzz' && correctCount === 7 && checkStaticJumpscare() === false) {
+    if(document.title === 'Byte Buzz' && correctCount === 4 && checkStaticJumpscare() === false) {
       playStaticImage();
       changeStaticJumpscare();
     }
 
-    if (correctCount === 9) {
+    if (correctCount === 6) {
       monkeyType.style.display = 'none';
 
       var yearButton = document.querySelector('.year');
@@ -147,6 +157,29 @@ function handleKeyPress(event) {
   } else if (monkeyType.style.display !== 'none') {
     letterDiv.classList.add('incorrect');
     playWrong();
+    wrongCount++;
+    if(wrongCount == 3 && checkCaptchaTutorial() === false){
+      const dialogue = document.querySelector('.dialogue');
+      const dialogueP = document.querySelector('.dialogue p');
+
+      dialogueP.textContent = 'Talvez a letra indique a posição inicial e o número a posição da letra que se deve apertar a partir da posição inicial.'
+      dialogue.style.display = 'flex';
+
+      setTimeout(() => {
+        dialogue.style.display = 'none';
+      }, 12000);
+    }
+    if(wrongCount == 5 && checkCaptchaTutorial() === false && (document.title === 'Moodle' || document.title === 'JOY JOURNAL')){
+      const dialogue = document.querySelector('.dialogue');
+      const dialogueP = document.querySelector('.dialogue p');
+
+      dialogueP.textContent = 'Por exemplo A2, o usuário deveria apertar a letra C.'
+      dialogue.style.display = 'flex';
+
+      setTimeout(() => {
+        dialogue.style.display = 'none';
+      }, 8000);
+    }
     setTimeout(() => {
       letterDiv.classList.remove('incorrect');
     }, 500);
@@ -164,6 +197,12 @@ function enableScroll() {
 
 function scrollToTop() {
   window.scrollTo(0, 0);
+}
+
+function shiftLetter(letter, shift) {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const newIndex = (alphabet.indexOf(letter) + shift) % 26;
+  return alphabet[newIndex];
 }
 
 export { createCaptcha, updateLetter };
