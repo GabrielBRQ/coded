@@ -8,10 +8,8 @@ import {
 import {
   changeYear,
   getYear,
-  checkStaticJumpscare,
-  changeStaticJumpscare,
-  checkCaptchaTutorial,
-  changeCaptchaTutorial,
+  changeStats,
+  checkStats,
 } from './localStorage-control.js';
 import { getNews } from './ato1-v1.js';
 import { playStaticImage } from './byteBuzz.js';
@@ -130,7 +128,7 @@ function handleKeyPress(event) {
     correctCount++;
 
     if (correctCount === 2) {
-      changeCaptchaTutorial();
+      changeStats('captchaTutorial');
     }
 
     // Atualiza a largura da barra de progresso
@@ -139,10 +137,10 @@ function handleKeyPress(event) {
     if (
       document.title === 'Byte Buzz' &&
       correctCount === 4 &&
-      checkStaticJumpscare() === false
+      checkStats('staticJumpscare') === false
     ) {
       playStaticImage();
-      changeStaticJumpscare();
+      changeStats('staticJumpscare');
     }
 
     if (correctCount === 6) {
@@ -172,12 +170,11 @@ function handleKeyPress(event) {
     letterDiv.classList.add('incorrect');
     playWrong();
     wrongCount++;
-    if (wrongCount == 3 && checkCaptchaTutorial() === false) {
+    if (wrongCount == 3 && checkStats('captchaTutorial') === false) {
       const dialogue = document.querySelector('.dialogue');
       const dialogueP = document.querySelector('.dialogue p');
 
-      dialogueP.textContent =
-        'Talvez a letra indique a posição inicial e o número a posição da letra que se deve apertar a partir da posição inicial.';
+      dialogueP.textContent = 'Talvez a letra indique a posição inicial e o número a posição da letra que se deve apertar a partir da posição inicial.';
       dialogue.style.display = 'flex';
 
       setTimeout(() => {
@@ -186,7 +183,7 @@ function handleKeyPress(event) {
     }
     if (
       wrongCount == 5 &&
-      checkCaptchaTutorial() === false &&
+      checkStats('captchaTutorial') === false &&
       (document.title === 'Moodle' || document.title === 'JOY JOURNAL')
     ) {
       const dialogue = document.querySelector('.dialogue');

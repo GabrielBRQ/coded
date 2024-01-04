@@ -1,6 +1,6 @@
 import '../css/byteBuzz.css';
 import { timeTravelBuzz } from './timeMachine.js';
-import { getYear, createYears, checkStaticJumpscare } from './localStorage-control.js';
+import { getYear, createYears } from './localStorage-control.js';
 import { createCaptcha } from './captchaV2.js';
 import { listenHome } from './ato1-v1.js';
 import { playStatic } from './audio.js';

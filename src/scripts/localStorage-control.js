@@ -32,52 +32,6 @@ function verifyNewUser() {
   }
 }
 
-function changeJumpscare() {
-  // Obtém os dados armazenados localmente com a chave 'gameStats'
-  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-
-  // Verifica se há pelo menos um conjunto de estatísticas no array
-  if (gameStats.length > 0) {
-    gameStats[gameStats.length - 1].jumpscare = true;
-
-    localStorage.setItem('gameStats', JSON.stringify(gameStats));
-  }
-}
-
-function changeChapter1() {
-  // Obtém os dados armazenados localmente com a chave 'gameStats'
-  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-
-  // Verifica se há pelo menos um conjunto de estatísticas no array
-  if (gameStats.length > 0) {
-    gameStats[gameStats.length - 1].chapter1 = true;
-
-    localStorage.setItem('gameStats', JSON.stringify(gameStats));
-  }
-}
-
-function checkJumpscare() {
-  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-
-  if (gameStats.length > 0) {
-    if (gameStats[gameStats.length - 1].jumpscare === true) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function checkChapter1() {
-  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-
-  if (gameStats.length > 0) {
-    if (gameStats[gameStats.length - 1].chapter1 === true) {
-      return true;
-    }
-  }
-  return false;
-}
-
 function createYears() {
   const timeLine = document.querySelector('.timeline');
   const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
@@ -110,6 +64,7 @@ function getYear() {
   return gameStats[gameStats.length - 1].currentYear;
 }
 
+//change diferente, não mudar
 function changeYear(newYear) {
   const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
 
@@ -117,68 +72,33 @@ function changeYear(newYear) {
   localStorage.setItem('gameStats', JSON.stringify(gameStats));
 }
 
-function changeYearClue() {
-  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-  gameStats[gameStats.length - 1].yearClue = true;
-  localStorage.setItem('gameStats', JSON.stringify(gameStats));
-}
-
-function checkYearClue() {
+function changeJumpscare() {
+  // Obtém os dados armazenados localmente com a chave 'gameStats'
   const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
 
+  // Verifica se há pelo menos um conjunto de estatísticas no array
   if (gameStats.length > 0) {
-    if (gameStats[gameStats.length - 1].yearClue === true) {
-      return true;
-    }
+    gameStats[gameStats.length - 1].jumpscare = true;
+
+    localStorage.setItem('gameStats', JSON.stringify(gameStats));
   }
-  return false;
 }
 
-function changeMoodleClue() {
+function changeStats(stats) {
+  // Obtém os dados armazenados localmente com a chave 'gameStats'
   const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-  gameStats[gameStats.length - 1].backMoodleClue = true;
+  // Muda o stats para true
+  gameStats[gameStats.length - 1][stats] = true;
   localStorage.setItem('gameStats', JSON.stringify(gameStats));
 }
 
-function checkMoodleClue() {
+function checkStats(stats) {
+  // Obtém os dados armazenados localmente com a chave 'gameStats'
   const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
 
   if (gameStats.length > 0) {
-    if (gameStats[gameStats.length - 1].backMoodleClue === true) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function changeStaticJumpscare() {
-  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-  gameStats[gameStats.length - 1].staticJumpscare = true;
-  localStorage.setItem('gameStats', JSON.stringify(gameStats));
-}
-
-function checkStaticJumpscare() {
-  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-
-  if (gameStats.length > 0) {
-    if (gameStats[gameStats.length - 1].staticJumpscare === true) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function changeCaptchaTutorial() {
-  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-  gameStats[gameStats.length - 1].captchaTutorial = true;
-  localStorage.setItem('gameStats', JSON.stringify(gameStats));
-}
-
-function checkCaptchaTutorial() {
-  const gameStats = JSON.parse(localStorage.getItem('gameStats')) || [];
-
-  if (gameStats.length > 0) {
-    if (gameStats[gameStats.length - 1].captchaTutorial === true) {
+    // Verifica se o stats é verdadeiro ou falso
+    if (gameStats[gameStats.length - 1][stats] === true) {
       return true;
     }
   }
@@ -188,20 +108,11 @@ function checkCaptchaTutorial() {
 export {
   verifyNewUser,
   changeJumpscare,
-  changeChapter1,
-  checkJumpscare,
-  checkChapter1,
   createYears,
   addYear,
   getYear,
   changeYear,
   saveStatsLocal,
-  changeYearClue,
-  checkYearClue,
-  changeMoodleClue,
-  checkMoodleClue,
-  checkStaticJumpscare,
-  changeStaticJumpscare,
-  checkCaptchaTutorial,
-  changeCaptchaTutorial
+  checkStats,
+  changeStats
 };

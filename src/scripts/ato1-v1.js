@@ -1,7 +1,7 @@
 import '../css/ato1-v1.css';
 import {
-  checkChapter1,
-  changeChapter1,
+  checkStats,
+  changeStats,
   createYears,
   getYear,
 } from './localStorage-control.js';
@@ -17,9 +17,10 @@ if (document.title === 'Moodle') {
     });
     timeTravelMoodle(getYear());
     const container = document.querySelector('.container');
-    if (checkChapter1() === false) {
+    if (checkStats('chapter1') === false) {
       const startChapter = document.querySelector('.start');
 
+      //muda a tela para o moodle
       startChapter.addEventListener(
         'click',
         function () {
@@ -29,7 +30,7 @@ if (document.title === 'Moodle') {
           var chapter = document.querySelector('.chapter');
           chapter.style.opacity = 0;
           setTimeout(() => {
-            changeChapter1();
+            changeStats('chapter1');
             setTimeout(() => {
               chapter.style.display = 'none';
               activeContent();

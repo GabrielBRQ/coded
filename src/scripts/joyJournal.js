@@ -2,15 +2,11 @@ import '../css/joyJournal.css';
 import { createCaptcha } from './captchaV2.js';
 import { addYearSong, playHappy, speak, stopHappy } from './audio.js';
 import {
-  checkJumpscare,
-  changeJumpscare,
+  checkStats,
+  changeStats,
   createYears,
   addYear,
   getYear,
-  checkYearClue,
-  changeYearClue,
-  checkMoodleClue,
-  changeMoodleClue,
 } from './localStorage-control.js';
 import popup from '../img/popup.gif';
 import { timeTravelJoy } from './timeMachine.js';
@@ -43,7 +39,7 @@ if (document.title === 'JOY JOURNAL') {
     function handleScroll() {
       const scrollPosition = window.scrollY;
 
-      if (checkYearClue() === false) {
+      if (checkStats('yearClue') === false) {
         // Ativa a animação e fala
         if (scrollPosition >= (62 * window.innerHeight) / 100) {
           animatedImage.style.animationPlayState = 'running';
@@ -55,7 +51,7 @@ if (document.title === 'JOY JOURNAL') {
             setTimeout(() => {
               const dialogue = document.querySelector('.dialogue');
               dialogue.style.display = 'none';
-              changeYearClue();
+              changeStats('yearClue');
             }, 3000);
           }, 5500);
         }
@@ -68,7 +64,7 @@ if (document.title === 'JOY JOURNAL') {
   });
 }
 
-function criarDivYear(texto) {
+function createDivYear(texto) {
   const divYear = document.createElement('div');
   divYear.classList.add('year');
   divYear.textContent = texto;
@@ -83,7 +79,7 @@ function addEvent() {
     const texto = tag.textContent;
 
     if (verificarDivExistente(texto) === false) {
-      const divYear = criarDivYear(texto);
+      const divYear = createDivYear(texto);
       const timeline = document.querySelector('.timeline');
       timeline.appendChild(divYear);
 
@@ -121,8 +117,7 @@ function listenYears() {
       const blur = document.querySelector('.blur');
       blur.style.display = 'flex';
       createCaptcha(div.textContent);
-      console.log(checkJumpscare());
-      if (checkJumpscare() === false) {
+      if (checkStats('jumpscare') === false) {
         window.addEventListener('scroll', playPopup);
       }
     });
@@ -151,7 +146,7 @@ function playPopup() {
       closePopup();
       popupDiv.style.opacity = 1;
     }, 5500);
-    changeJumpscare();
+    changeStats('jumpscare');
   }
 }
 
@@ -165,8 +160,8 @@ function closePopup() {
     popup.style.display = 'none';
     stopHappy();
     setTimeout(() => {
-      if (checkMoodleClue() === false) {
-        changeMoodleClue();
+      if (checkStats('backMoodleClue') === false) {
+        changeStats('backMoodleClue');
         speak();
         dialogueText.textContent =
           'Será que a página do Moodle está diferente?';
